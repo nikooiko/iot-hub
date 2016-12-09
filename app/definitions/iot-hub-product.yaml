@@ -1,20 +1,16 @@
-product: '1.0.0'
-
+product: 1.0.0
 info:
   name: iot-hub
   title: iot-hub
   version: 1.0.0
-
 apis:
-  'iot-hub':
+  iot-hub:
     $ref: iot-hub.yaml
-
 visibility:
   view:
-    type: public
+    type: authenticated
   subscribe:
     type: authenticated
-
 plans:
   default:
     title: Default Plan

@@ -42,6 +42,11 @@
   },
   "files": {},
   "final": {
+    "./middleware/serveFrontend": {
+      "methods": [
+        "GET"
+      ]
+    },
     "loopback#urlNotFound": {}
   },
   "final:after": {

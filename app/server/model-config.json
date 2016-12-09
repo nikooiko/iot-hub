@@ -22,5 +22,10 @@
     "dataSource": "mongoDs",
     "public": false,
     "strict": true
+  },
+  "AppUser": {
+    "dataSource": null,
+    "public": true,
+    "strict": true
   }
 }

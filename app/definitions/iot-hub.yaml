@@ -1,5 +1,487 @@
-paths: {}
-definitions: {}
+paths:
+  /AppUsers:
+    post:
+      tags:
+        - AppUser
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: AppUser.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+    put:
+      tags:
+        - AppUser
+      summary: Patch an existing model instance or insert a new one into the data source.
+      operationId: AppUser.upsert__put_AppUsers
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+    patch:
+      tags:
+        - AppUser
+      summary: Patch an existing model instance or insert a new one into the data source.
+      operationId: AppUser.upsert__patch_AppUsers
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+    get:
+      tags:
+        - AppUser
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: AppUser.find
+      parameters:
+        - name: filter
+          in: query
+          description: 'Filter defining fields, where, include, order, offset, and limit'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AppUser'
+      deprecated: false
+  /AppUsers/replaceOrCreate:
+    post:
+      tags:
+        - AppUser
+      summary: Replace an existing model instance or insert a new one into the data source.
+      operationId: AppUser.replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+  /AppUsers/upsertWithWhere:
+    post:
+      tags:
+        - AppUser
+      summary: Update an existing model instance or insert a new one into the data source based on the where criteria.
+      operationId: AppUser.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+  '/AppUsers/{id}/exists':
+    get:
+      tags:
+        - AppUser
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'AppUser.exists__get_AppUsers_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/AppUsers/{id}':
+    head:
+      tags:
+        - AppUser
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'AppUser.exists__head_AppUsers_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - AppUser
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: AppUser.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: Filter defining fields and include
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+    delete:
+      tags:
+        - AppUser
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: AppUser.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    put:
+      tags:
+        - AppUser
+      summary: Patch attributes for a model instance and persist it into the data source.
+      operationId: 'AppUser.prototype.updateAttributes__put_AppUsers_{id}'
+      parameters:
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/AppUser'
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+    patch:
+      tags:
+        - AppUser
+      summary: Patch attributes for a model instance and persist it into the data source.
+      operationId: 'AppUser.prototype.updateAttributes__patch_AppUsers_{id}'
+      parameters:
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/AppUser'
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+  '/AppUsers/{id}/replace':
+    post:
+      tags:
+        - AppUser
+      summary: Replace attributes for a model instance and persist it into the data source.
+      operationId: AppUser.replaceById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+  /AppUsers/findOne:
+    get:
+      tags:
+        - AppUser
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: AppUser.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: 'Filter defining fields, where, include, order, offset, and limit'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/AppUser'
+      deprecated: false
+  /AppUsers/update:
+    post:
+      tags:
+        - AppUser
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: AppUser.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/AppUser'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /AppUsers/count:
+    get:
+      tags:
+        - AppUser
+      summary: Count instances of the model matched by where from the data source.
+      operationId: AppUser.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /AppUsers/login:
+    post:
+      tags:
+        - AppUser
+      summary: Login a user with username/email and password.
+      operationId: AppUser.login
+      parameters:
+        - name: credentials
+          in: body
+          required: true
+          schema:
+            type: object
+        - name: include
+          in: query
+          description: Related objects to include in the response. See the description of return value for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: >+
+              The response body contains properties of the AccessToken created on
+              login.
+
+              Depending on the value of `include` parameter, the body may contain
+              additional properties:
+
+
+
+
+
+
+
+                - `user` - `U+007BUserU+007D` - Data of the currently logged in
+
+              user. (`include=user`)
+
+
+            type: object
+      deprecated: false
+  /AppUsers/logout:
+    post:
+      tags:
+        - AppUser
+      summary: Logout a user with access token.
+      operationId: AppUser.logout
+      parameters: []
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  /AppUsers/confirm:
+    get:
+      tags:
+        - AppUser
+      summary: Confirm a user registration with email verification token.
+      operationId: AppUser.confirm
+      parameters:
+        - name: uid
+          in: query
+          required: true
+          type: string
+        - name: token
+          in: query
+          required: true
+          type: string
+        - name: redirect
+          in: query
+          required: false
+          type: string
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  /AppUsers/reset:
+    post:
+      tags:
+        - AppUser
+      summary: Reset password for a user with email.
+      operationId: AppUser.resetPassword
+      parameters:
+        - name: options
+          in: body
+          required: true
+          schema:
+            type: object
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+definitions:
+  AppUser:
+    properties:
+      realm:
+        type: string
+      username:
+        type: string
+      credentials:
+        type: object
+      challenges:
+        type: object
+      email:
+        type: string
+      emailVerified:
+        type: boolean
+      status:
+        type: string
+      created:
+        type: string
+        format: date
+      lastUpdated:
+        type: string
+        format: date
+      id:
+        type: number
+        format: double
+    required:
+      - email
+    additionalProperties: false
+  x-any:
+    properties: {}
 basePath: /api
 swagger: '2.0'
 info:
