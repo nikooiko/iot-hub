@@ -1,0 +1,88 @@
+{
+  "name": "AppUser",
+  "plural": "AppUsers",
+  "base": "User",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "credentials": false,
+    "created": false,
+    "lastUpdated": false,
+    "challenges": false
+  },
+  "indexes": {
+    "username_index": {
+      "keys": {
+        "username": 1
+      },
+      "options": {
+        "unique": true
+      }
+    },
+    "email_index": {
+      "keys": {
+        "email": 1
+      },
+      "options": {
+        "unique": true
+      }
+    }
+  },
+  "hidden": ["password"],
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "deleteById"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "DENY",
+      "property": "__create__sensors"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "refreshToken"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "sharedProcessUser",
+      "permission": "ALLOW",
+      "property": "__get__configuration__sensorRanges"
+    }
+  ],
+  "methods": {}
+}
