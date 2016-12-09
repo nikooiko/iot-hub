@@ -1,0 +1,34 @@
+{
+  "name": "Device",
+  "plural": "Devices",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "ownerId": {
+      "type": "string",
+      "required": false
+    },
+    "state": {
+      "type": "object",
+      "required": false,
+      "description": "Storage where the app is storing the device state (ex. status)"
+    },
+    "activated": {
+      "type": "boolean",
+      "required": false,
+      "description": "Indicates whether this device is activated or not"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

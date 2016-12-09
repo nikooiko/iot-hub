@@ -1,0 +1,19 @@
+version: "2"
+services:
+  iot-platform:
+    image: iot-platform-image
+    environment:
+      NODE_ENV: 'development'
+      MONGOURL: 'mongodb://mongo/iot-platform'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      # The volume to hold database files.
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+    driver: local

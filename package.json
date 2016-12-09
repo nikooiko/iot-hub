@@ -1,0 +1,31 @@
+{
+  "name": "iot-platform",
+  "version": "1.0.0",
+  "description": "## Description  Presentation: [presentation](https://docs.google.com/presentation/d/1Xi2VNbumGQ3iPnQSmlPcEmbbN7ib7VYmEkX46dJeXdA/edit#slide=id.g19cd573a60_0_1204)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikooiko/WWW-IOT-Platform.git"
+  },
+  "keywords": [
+    "iot-platform"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikooiko/WWW-IOT-Platform/issues"
+  },
+  "homepage": "https://github.com/nikooiko/WWW-IOT-Platform#readme",
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1"
+  },
+  "dependencies": {
+  }
+}

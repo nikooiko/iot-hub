@@ -1,0 +1,10 @@
+{
+  "mongoDs": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "${MONGOURL}",
+    "database": "iot-hub",
+    "name": "mongoDs",
+    "connector": "mongodb"
+  }
+}
