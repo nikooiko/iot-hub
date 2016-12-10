@@ -1,19 +1,15 @@
 'use strict';
 
+const path = require('path');
 /**
  * This function will serve the front end applications.
  *
  * See: [Loopback Middleware](https://docs.strongloop.com/display/public/LB/Defining+middleware)
  */
 module.exports = () => (req, res) => {
-  const url = req.originalUrl;
-  if (
-    url.startsWith('/login') || url.startsWith('/register') || url.startsWith('/forgotPassword')
-  ) {
-    res.render('public/index');
-  } else if (url.startsWith('/admin')) {
-    res.render('appAdmin/index');
+  if (process.env.UNDER_DEVELOPMENT) {
+    res.sendFile(path.join(__dirname + '/../../client/dev-index.html'));
   } else {
-    res.render('appUser/index');
+    res.sendFile(path.join(__dirname + '/../../client/index.html'));
   }
 };

@@ -40,7 +40,16 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": [
+      {
+        "params": "$!../client"
+      },
+      {
+        "params": "$!../node_modules"
+      }
+    ]
+  },
   "final": {
     "./middleware/serveFrontend": {
       "methods": [
