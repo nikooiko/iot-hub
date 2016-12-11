@@ -451,37 +451,50 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
+  /AppUsers/Mylogin:
+    post:
+      tags:
+        - AppUser
+      operationId: AppUser.Mylogin
+      parameters:
+        - name: credentials
+          in: formData
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+      deprecated: false
 definitions:
   AppUser:
     properties:
-      realm:
+      email:
         type: string
       username:
         type: string
-      credentials:
-        type: object
-      challenges:
-        type: object
-      email:
+      realm:
         type: string
       emailVerified:
         type: boolean
       status:
         type: string
-      created:
-        type: string
-        format: date
-      lastUpdated:
-        type: string
-        format: date
       id:
-        type: number
-        format: double
+        $ref: '#/definitions/ObjectID'
     required:
       - email
+      - username
     additionalProperties: false
   x-any:
     properties: {}
+  ObjectID:
+    type: string
+    pattern: "^[a-fA-F\\d]{24}$"
 basePath: /api
 swagger: '2.0'
 info:

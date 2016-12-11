@@ -1,5 +1,9 @@
 'use strict';
 
+const jwt = require('jsonwebtoken');
+
+const secret = 'secret';
+
 // TODO fix
 // const Promise = require('bluebird');
 // const utils = require('../../server/lib/customUtils.js');
@@ -21,6 +25,61 @@
  * @property {UserConfiguration} userConf The embedded document holding user configuration
  */
 module.exports = (AppUser) => {
+// TODO Delete these routes
+  AppUser.afterRemote('login', (ctx, result, next) => {
+    // TODO recreate
+    const token = jwt.sign({ userId: result.userId }, secret);
+    if (!result.__data.user) {
+      result.__data.user = { jwt: token };
+    } else {
+      result.__data.user.jwt = token;
+    }
+    next();
+    // Promise.all([
+    //   AppUser.getUserRoles(result.userId),
+    //   token.createToken({ userId: result.userId, type: 'user' })
+    // ])
+    //   .then(([roles, createdToken]) => {
+    //     result.roles = roles;
+    //     if (!result.__data.user) {
+    //       result.__data.user = { jwt: createdToken };
+    //     } else {
+    //       result.__data.user.jwt = createdToken;
+    //     }
+    //   })
+  });
+
+  AppUser.remoteMethod('testToken', {
+    description: 'The functionality used to test a user\'s token',
+    http: {
+      verb: 'post',
+      status: 200,
+      errorStatus: 400,
+    },
+    isStatic: true,
+    accepts: [{
+      arg: 'token',
+      type: 'string',
+      description: 'The previous user token that needs to be tested',
+      required: true
+    }],
+    returns: [{
+      arg: 'decoded_token',
+      description: 'The decoded token',
+      type: 'object'
+    }]
+  });
+
+  AppUser.testToken = (token, cb) => {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        return cb(new Error('Token is invalid'));
+      }
+      return cb(null, decoded);
+    });
+  };
+
+
   // utils.disableUnusedRemotes(AppUser); // Disable unneeded remote hooks
   // /**
   //  * Disable Unused remote hooks as configured in loopback models. `disableRemoteMethod` is a

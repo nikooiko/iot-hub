@@ -4,23 +4,6 @@
   "base": "User",
   "strict": true,
   "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "username": {
-      "type": "string",
-      "required": true
-    },
-    "email": {
-      "type": "string",
-      "required": true
-    },
-    "credentials": false,
-    "created": false,
-    "lastUpdated": false,
-    "challenges": false
-  },
   "indexes": {
     "username_index": {
       "keys": {
@@ -39,7 +22,26 @@
       }
     }
   },
-  "hidden": ["password"],
+  "options": {
+    "validateUpsert": true
+  },
+  "hidden": [
+    "password"
+  ],
+  "properties": {
+    "challenges": false,
+    "created": false,
+    "credentials": false,
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "lastUpdated": false,
+    "username": {
+      "type": "string",
+      "required": true
+    }
+  },
   "validations": [],
   "relations": {},
   "acls": [
@@ -82,6 +84,13 @@
       "principalId": "sharedProcessUser",
       "permission": "ALLOW",
       "property": "__get__configuration__sensorRanges"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "testToken"
     }
   ],
   "methods": {}

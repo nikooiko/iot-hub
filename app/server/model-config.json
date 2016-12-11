@@ -13,19 +13,32 @@
       "./mixins"
     ]
   },
+  "AccessToken": {
+    "dataSource": "mongoDs",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "memoryDs",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mongoDs",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "mongoDs",
+    "public": false
+  },
   "Device": {
     "dataSource": "mongoDs",
-    "public": false,
-    "strict": true
+    "public": false
   },
   "Owner": {
     "dataSource": "mongoDs",
-    "public": false,
-    "strict": true
+    "public": false
   },
   "AppUser": {
-    "dataSource": null,
-    "public": true,
-    "strict": true
+    "dataSource": "mongoDs",
+    "public": true
   }
 }
