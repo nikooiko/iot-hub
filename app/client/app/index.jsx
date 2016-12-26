@@ -15,11 +15,13 @@ import routes from './routes';
 // TODO delete when unneeded
 injectTapEventPlugin();
 
+const onUpdate = () => {window.scrollTo(0, 0); };
+
 // Render Theme >> Provider >> Router
 render((
   <MuiThemeProvider>
     <Provider store={store}>
-      <Router history={browserHistory} routes={routes} />
+      <Router history={browserHistory} routes={routes} onUpdate={onUpdate}/>
     </Provider>
   </MuiThemeProvider>
 ), document.getElementById('root'));

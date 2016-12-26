@@ -5,8 +5,8 @@ import store from '../store';
 import LoadingPage from './pages/loading-page.jsx';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       isReady: false
