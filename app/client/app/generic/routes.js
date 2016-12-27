@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './App.js';
-import NotFoundPage from '../pages/NotFoundPage.js';
 
 // Components
 import Login from '../auth/Login.js';
@@ -19,6 +18,5 @@ export default (
     <Route path="register" component={RequireUnauth(Register)} />
     <Route path="dashboard" component={RequireAuth(Dashboard)} />
     <Redirect path="*" to="/login"/>
-    {/*<Route path="*" component={NotFoundPage} />*/}
   </Route>
 );

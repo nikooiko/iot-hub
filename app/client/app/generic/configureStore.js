@@ -1,27 +1,39 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import reducers from './reducers';
-import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
+import { browserHistory } from 'react-router'
+import { syncHistory } from 'redux-simple-router'
+import reducers from './reducers';
+import { loadState, saveState } from './localStorage';
 
 const configureStore = () => {
   const persistedState = loadState();
+  const reduxRouter = syncHistory(browserHistory);
   const middlewares = [
+    reduxRouter,
     thunk,
     promise,
     process.env.NODE_ENV !== 'production' && createLogger(),
   ].filter(Boolean);
 
-  const enhancer = compose(applyMiddleware(...middlewares));
+  const enhancer = compose(
+    applyMiddleware(...middlewares),
+  );
   // finally create store and apply the middlewares
   const store = createStore(reducers, persistedState, enhancer);
+  // Required for replaying actions from devtools to work
+  // reduxRouter.listenForReplays(store);
 
   store.subscribe(throttle(() => {
-    saveState({
-      auth: store.getState().auth
-    });
+    const state = store.getState();
+    const auth = state.auth;
+    if (auth.rememberMe) {
+      saveState({
+        auth
+      });
+    }
   }, 1000));
 
   return store;

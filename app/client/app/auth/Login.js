@@ -2,9 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { login } from './authActions';
-import { TextField } from 'redux-form-material-ui';
+import { TextField, Checkbox } from 'redux-form-material-ui';
 import { RaisedButton } from 'material-ui';
 import bindFunctions from '../utils/bindFunctions';
+
+const asyncValidate = (values) => {
+  return Promise.resolve();
+};
+
+const validate = (values) => {
+  const errors = {};
+  const requiredFields = [ 'username', 'password' ];
+  requiredFields.forEach(field => {
+    if (!values[ field ]) {
+      errors[ field ] = 'Required'
+    }
+  });
+  return errors
+};
+
+const renderTextField = (props) => (
+  <TextField
+    floatingLabelText={props.label}
+    errorText={props.touched && props.error}
+    {...props}
+  />
+);
 
 class Login extends React.Component {
   constructor(props, content) {
@@ -18,10 +41,10 @@ class Login extends React.Component {
   }
 
   renderAlert() {
-    if(this.props.errorMessage) {
+    if(this.props.error) {
       return (
         <div>
-          <span><strong>Error!</strong> {this.props.errorMessage}</span>
+          <span><strong>Error!</strong> {this.props.error}</span>
         </div>
       );
     }
@@ -35,19 +58,38 @@ class Login extends React.Component {
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           {this.renderAlert()}
           <div>
-            <label>Username</label>
-            <Field name="username" className="form-control" component={TextField} type="text" />
+            <Field
+              name="username"
+              className="form-control"
+              component={TextField}
+              type="text"
+              floatingLabelText="Username"
+            />
           </div>
           <div>
-            <label>Password</label>
-            <Field name="password" className="form-control" component={TextField} type="password" />
+            <Field
+              name="password"
+              className="form-control"
+              component={TextField}
+              type="password"
+              floatingLabelText="Password"
+            />
           </div>
-          <RaisedButton
-            type="submit"
-            label="Login"
-            primary={true}
-            onTouchTap={handleSubmit(this.handleFormSubmit)}
-          />
+          <div>
+            <Field
+              name="rememberMe"
+              label="RememberMe"
+              component={Checkbox}
+            />
+          </div>
+          <div>
+            <RaisedButton
+              type="submit"
+              label="Login"
+              primary={true}
+              onTouchTap={handleSubmit(this.handleFormSubmit)}
+            />
+          </div>
         </form>
       </div>
     );
@@ -55,12 +97,13 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  errorMessage: state.auth.error,
-  message: state.auth.message
+  error: state.auth.error
 });
 
 Login = reduxForm({
-  form: 'login'
+  form: 'loginForm',
+  validate,
+  asyncValidate
 })(Login);
 
 export default connect(mapStateToProps, { login })(Login);
