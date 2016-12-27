@@ -1,16 +1,10 @@
-import axios from 'axios';
+import api from '../utils/api';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router'; // TODO a better way
 
-import { AUTH_USER,
-  AUTH_ERROR,
-  UNAUTH_USER,
-  PROTECTED_TEST } from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './authTypes';
 
-const CLIENT_ROOT_URL = 'http://localhost:3000';
-const API_URL = `${CLIENT_ROOT_URL}/api`; // TODO get from config?
-
-export function errorHandler(dispatch, error, type) {
+const errorHandler = (dispatch, error, type) => {
   let errorMessage = error.message;
 
   if(error.status === 401) {
@@ -25,11 +19,11 @@ export function errorHandler(dispatch, error, type) {
       payload: errorMessage
     });
   }
-}
+};
 
-export function login(credentials) {
+export const login = (credentials) => {
   return (dispatch) => {
-    return axios.post(`${API_URL}/AppUsers/login`, credentials)
+    return api.post('/AppUsers/login' , credentials)
       .then(response => {
         cookie.save('token', response.data.user.jwt, { path: '/' });
         dispatch({ type: AUTH_USER });
@@ -39,11 +33,11 @@ export function login(credentials) {
         errorHandler(dispatch, err, AUTH_ERROR)
       });
   }
-}
+};
 
-export function register(form) {
+export const register = (form) => {
   return (dispatch) => {
-    axios.post(`${API_URL}/AppUsers`, form)
+    api.post('/AppUsers', form)
       .then(response => {
         cookie.save('token', response.data.user.jwt, { path: '/' });
         dispatch({ type: AUTH_USER });
@@ -53,21 +47,21 @@ export function register(form) {
         errorHandler(dispatch, error.response, AUTH_ERROR)
       });
   }
-}
+};
 
-export function logout() {
+export const logout = () => {
   return (dispatch) => {
     dispatch({ type: UNAUTH_USER });
     cookie.remove('token', { path: '/' });
     browserHistory.push('/login');
     return Promise.resolve();
   }
-}
+};
 
-export function testToken() {
+export const testToken = () => {
   return (dispatch) => {
     const token = cookie.load('token');
-    return axios.post(`${API_URL}/AppUsers/testToken`, { token })
+    return api.post('/AppUsers/testToken', { token })
       .then(() => {
         dispatch({ type: AUTH_USER });
       })
@@ -77,4 +71,4 @@ export function testToken() {
         cookie.remove('token', { path: '/' });
       });
   }
-}
+};

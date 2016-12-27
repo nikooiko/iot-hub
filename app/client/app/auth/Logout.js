@@ -2,7 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import { connect } from 'react-redux';
-import { logout } from '../../actions';
+import { logout } from './authActions';
 
 class Logout extends React.Component {
   static contextTypes = {

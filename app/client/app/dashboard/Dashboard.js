@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
-import Logout from './auth/logout.jsx';
+import * as actions from '../auth/authActions';
+import Logout from '../auth/Logout.js';
 
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
   constructor(props) {
     super(props);
   }

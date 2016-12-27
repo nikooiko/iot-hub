@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
-import App from './components/app.jsx';
-import NotFoundPage from './components/pages/not-found-page.jsx';
+import App from './App.js';
+import NotFoundPage from '../pages/NotFoundPage.js';
 
 // Components
-import Login from './components/auth/login.jsx';
-import Register from './components/auth/register.jsx';
-import RequireAuth from './components/auth/require-auth.jsx';
-import RequireUnauth from './components/auth/require-unauth.jsx';
+import Login from '../auth/Login.js';
+import Register from '../auth/Register.js';
+import RequireAuth from '../auth/RequireAuth.js';
+import RequireUnauth from '../auth/RequireUnauth.js';
 // import HomePage from './components/pages/home-page';
-import Dashboard from './components/dashboard.jsx';
+import Dashboard from '../dashboard/Dashboard.js';
 
 export default (
   <Route path="/" component={App}>
