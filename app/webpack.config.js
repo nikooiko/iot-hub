@@ -14,8 +14,15 @@ const config = {
   module: {
     loaders: [
       {
+        test: /\.js/,
+        include: APP_DIR,
+        exclude: /node_modules/,
+        loaders: ['babel']
+      },
+      {
         test: /\.jsx?/,
         include: APP_DIR,
+        exclude: /node_modules/,
         loader: 'babel'
       },
       {
@@ -34,6 +41,11 @@ const config = {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
       }
+    ]
+  },
+  sassLoader: {
+    includePaths: [
+      './node_modules'
     ]
   },
   plugins: [
