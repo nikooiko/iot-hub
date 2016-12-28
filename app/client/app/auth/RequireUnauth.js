@@ -1,21 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { routeAfterAuth } from './authConfig';
 
 export default (ComposedComponent) => {
-  class Anauthenticated extends React.Component {
+  class Unauthenticated extends React.Component {
     static contextTypes = {
       router: React.PropTypes.object
     };
 
     componentWillMount() {
       if(this.props.authenticated) {
-        this.context.router.push('/dashboard');
+        this.context.router.push(routeAfterAuth);
       }
     }
 
     componentWillUpdate(nextProps) {
       if(nextProps.authenticated) {
-        this.context.router.push('/dashboard');
+        this.context.router.push(routeAfterAuth);
       }
     }
 
@@ -28,5 +29,5 @@ export default (ComposedComponent) => {
     return { authenticated: state.auth.authenticated };
   }
 
-  return connect(mapStateToProps)(Anauthenticated);
+  return connect(mapStateToProps)(Unauthenticated);
 }

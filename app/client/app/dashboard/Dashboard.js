@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../auth/authActions';
-import Logout from '../auth/Logout.js';
 
 export class Dashboard extends React.Component {
   constructor(props) {
@@ -12,7 +11,6 @@ export class Dashboard extends React.Component {
     return (
       <div>
         Dashboard (PROTECTED):
-        <Logout />
       </div>
     );
   }

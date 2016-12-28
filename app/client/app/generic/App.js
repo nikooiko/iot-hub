@@ -2,9 +2,6 @@ import React from 'react';
 import { testIfAuthenticated } from '../auth/authActions';
 
 import LoadingPage from '../pages/LoadingPage';
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
-import Sidebar from '../layout/Siderbar';
 
 
 
@@ -28,24 +25,15 @@ class App extends React.Component {
   render() {
     let content;
     if (!this.state.isReady) {
-       content = (
-         <div>
-          <LoadingPage />
-         </div>
-       );
+       content = <LoadingPage />;
     } else {
-      content = (
-        <div className="container">
-          <Header/>
-          <Sidebar/>
-          <div className="content">
-            {this.props.children}
-          </div>
-          <Footer/>
-        </div>
-      )
+      content = this.props.children;
     }
-    return content;
+    return (
+      <div className='application'>
+        {content}
+      </div>
+    );
   }
 }
 

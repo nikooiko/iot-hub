@@ -59,33 +59,33 @@ class Login extends React.Component {
           {this.renderAlert()}
           <div>
             <Field
-              name="username"
-              className="form-control"
+              name='username'
+              className='form-control'
               component={TextField}
-              type="text"
-              floatingLabelText="Username"
+              type='text'
+              floatingLabelText='Username'
             />
           </div>
           <div>
             <Field
-              name="password"
-              className="form-control"
+              name='password'
+              className='form-control'
               component={TextField}
-              type="password"
-              floatingLabelText="Password"
+              type='password'
+              floatingLabelText='Password'
             />
           </div>
           <div>
             <Field
-              name="rememberMe"
-              label="RememberMe"
+              name='rememberMe'
+              label='RememberMe'
               component={Checkbox}
             />
           </div>
           <div>
             <RaisedButton
-              type="submit"
-              label="Login"
+              type='submit'
+              label='Login'
               primary={true}
               onTouchTap={handleSubmit(this.handleFormSubmit)}
             />

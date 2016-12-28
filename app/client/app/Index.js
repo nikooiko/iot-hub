@@ -7,7 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import configureStore from './generic/configureStore';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
-import './generic/base.scss';
+import './base.scss';
 
 // Needed for onTouchTap
 // TODO delete when unneeded

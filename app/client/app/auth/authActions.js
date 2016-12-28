@@ -2,6 +2,7 @@ import api from '../utils/api';
 import { routeActions } from 'redux-simple-router'
 
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './authTypes';
+import { routeAfterAuth, routeAfterUnauth } from './authConfig';
 
 const errorHandler = (dispatch, error, type) => {
   let errorMessage = error.message;
@@ -26,7 +27,7 @@ export const login = (credentials) => {
       .then(response => {
         const rememberMe = credentials.rememberMe;
         dispatch({ type: AUTH_USER, jwt: response.data.user.jwt, rememberMe });
-        dispatch(routeActions.push('/dashboard'));
+        dispatch(routeActions.push(routeAfterAuth));
       })
       .catch((err) => {
         errorHandler(dispatch, err, AUTH_ERROR)
@@ -39,7 +40,7 @@ export const register = (form) => {
     api.post('/AppUsers', form)
       .then(response => {
         dispatch({ type: AUTH_USER, jwt: response.data.user.jwt });
-        dispatch(routeActions.push('/dashboard'));
+        dispatch(routeActions.push(routeAfterAuth));
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -50,7 +51,7 @@ export const register = (form) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch({ type: UNAUTH_USER });
-    dispatch(routeActions.push('/login'));
+    dispatch(routeActions.push(routeAfterUnauth));
     return Promise.resolve();
   }
 };
