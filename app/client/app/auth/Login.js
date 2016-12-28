@@ -21,14 +21,6 @@ const validate = (values) => {
   return errors
 };
 
-const renderTextField = (props) => (
-  <TextField
-    floatingLabelText={props.label}
-    errorText={props.touched && props.error}
-    {...props}
-  />
-);
-
 class Login extends React.Component {
   constructor(props, content) {
     super(props, content);
@@ -54,44 +46,42 @@ class Login extends React.Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          {this.renderAlert()}
-          <div>
-            <Field
-              name='username'
-              className='form-control'
-              component={TextField}
-              type='text'
-              floatingLabelText='Username'
-            />
-          </div>
-          <div>
-            <Field
-              name='password'
-              className='form-control'
-              component={TextField}
-              type='password'
-              floatingLabelText='Password'
-            />
-          </div>
-          <div>
-            <Field
-              name='rememberMe'
-              label='RememberMe'
-              component={Checkbox}
-            />
-          </div>
-          <div>
-            <RaisedButton
-              type='submit'
-              label='Login'
-              primary={true}
-              onTouchTap={handleSubmit(this.handleFormSubmit)}
-            />
-          </div>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        {this.renderAlert()}
+        <div>
+          <Field
+            name='username'
+            className='form-control'
+            component={TextField}
+            type='text'
+            floatingLabelText='Username'
+          />
+        </div>
+        <div>
+          <Field
+            name='password'
+            className='form-control'
+            component={TextField}
+            type='password'
+            floatingLabelText='Password'
+          />
+        </div>
+        <div>
+          <Field
+            name='rememberMe'
+            label='RememberMe'
+            component={Checkbox}
+          />
+        </div>
+        <div>
+          <RaisedButton
+            type='submit'
+            label='Login'
+            primary={true}
+            onTouchTap={handleSubmit(this.handleFormSubmit)}
+          />
+        </div>
+      </form>
     );
   }
 }

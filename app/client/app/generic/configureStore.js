@@ -10,7 +10,12 @@ import { loadState as localStorageLoad, saveState as localStorageSave } from './
 import { loadState as sessionStorageLoad, saveState as sessionStorageSave } from './sessionStorage';
 
 const configureStore = () => {
-  const persistedState = sessionStorageLoad() || localStorageLoad();
+  const sessionStorageState = sessionStorageLoad();
+  const localStorageState = localStorageLoad();
+  const persistedState =
+    (sessionStorageState && sessionStorageState.auth ? sessionStorageState : false) ||
+    (localStorageState && localStorageState.auth ? localStorageState : {});
+
   const reduxRouter = syncHistory(browserHistory);
   const middlewares = [
     reduxRouter,
@@ -34,11 +39,10 @@ const configureStore = () => {
       localStorageSave({
         auth
       });
-    } else {
-      sessionStorageSave({
-        auth
-      });
     }
+    sessionStorageSave({
+      auth
+    });
   }, 1000));
 
   return store;

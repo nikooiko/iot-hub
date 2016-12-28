@@ -1,43 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { TextField } from 'redux-form-material-ui';
+import { RaisedButton } from 'material-ui';
+import { Link } from 'react-router';
 import { register } from './authActions';
+import bindFunctions from '../utils/bindFunctions';
 
-const form = reduxForm({
-  form: 'register',
-  validate
-});
+const asyncValidate = (values) => {
+  return Promise.resolve();
+};
 
-const renderField = field => (
-  <div>
-    <input className='form-control' {...field.input}/>
-    {field.touched && field.error && <div className='error'>{field.error}</div>}
-  </div>
-);
-
-function validate(formProps) {
+const validate = (values) => {
   const errors = {};
-
-  if (!formProps.firstName) {
-    errors.firstName = 'Please enter a first name';
-  }
-
-  if (!formProps.lastName) {
-    errors.lastName = 'Please enter a last name';
-  }
-
-  if (!formProps.email) {
-    errors.email = 'Please enter an email';
-  }
-
-  if (!formProps.password) {
-    errors.password = 'Please enter a password';
-  }
-
-  return errors;
-}
+  const requiredFields = [ 'username', 'password' ];
+  requiredFields.forEach(field => {
+    if (!values[ field ]) {
+      errors[ field ] = 'Required'
+    }
+  });
+  return errors
+};
 
 class Register extends React.Component {
+  constructor(props, content) {
+    super(props, content);
+
+    bindFunctions(this, ['handleFormSubmit']);
+  }
+
   handleFormSubmit(formProps) {
     this.props.register(formProps);
   }
@@ -56,41 +47,63 @@ class Register extends React.Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        {this.renderAlert()}
-        <div className='row'>
-          <div className='col-md-6'>
-            <label>First Name</label>
-            <Field name='firstName' className='form-control' component={renderField} type='text' />
-          </div>
-          <div className='col-md-6'>
-            <label>Last Name</label>
-            <Field name='lastName' className='form-control' component={renderField} type='text' />
-          </div>
+      <div>
+        <div>
+          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            {this.renderAlert()}
+            <div>
+              <Field
+                name='username'
+                className='form-control'
+                component={TextField}
+                type='text'
+                floatingLabelText='Username'
+              />
+            </div>
+            <div>
+              <Field
+                name='password'
+                className='form-control'
+                component={TextField}
+                type='password'
+                floatingLabelText='Password'
+              />
+            </div>
+            <div>
+              <RaisedButton
+                type='submit'
+                label='Register'
+                primary={true}
+                onTouchTap={handleSubmit(this.handleFormSubmit)}
+                className='flex'
+              />
+            </div>
+          </form>
         </div>
-        <div className='row'>
-          <div className='col-md-12'>
-            <label>Email</label>
-            <Field name='email' className='form-control' component={renderField} type='text' />
-          </div>
+        <hr/>
+        <div>
+          <Link to='/login'>
+            <RaisedButton
+              label='Login'
+              secondary={true}
+              style={{ width: '100%' }}
+            />
+          </Link>
         </div>
-        <div className='row'>
-          <div className='col-md-12'>
-            <label>Password</label>
-            <Field name='password' className='form-control' component={renderField} type='password' />
-          </div>
-        </div>
-        <button type='submit' className='btn btn-primary'>Register</button>
-      </form>
+      </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    errorMessage: state.auth.error,
-    message: state.auth.message
-  };
-}
+const mapStateToProps = (state) => ({
+  errorMessage: state.auth.error,
+  message: state.auth.message
+});
 
-export default connect(mapStateToProps, { register })(form(Register));
+Register = reduxForm({
+  form: 'loginForm',
+  validate,
+  asyncValidate
+})(Register);
+
+export default connect(mapStateToProps, { register })(Register);
