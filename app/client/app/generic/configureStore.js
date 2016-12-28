@@ -6,10 +6,11 @@ import createLogger from 'redux-logger';
 import { browserHistory } from 'react-router'
 import { syncHistory } from 'redux-simple-router'
 import reducers from './reducers';
-import { loadState, saveState } from './localStorage';
+import { loadState as localStorageLoad, saveState as localStorageSave } from './localStorage';
+import { loadState as sessionStorageLoad, saveState as sessionStorageSave } from './sessionStorage';
 
 const configureStore = () => {
-  const persistedState = loadState();
+  const persistedState = sessionStorageLoad() || localStorageLoad();
   const reduxRouter = syncHistory(browserHistory);
   const middlewares = [
     reduxRouter,
@@ -30,7 +31,11 @@ const configureStore = () => {
     const state = store.getState();
     const auth = state.auth;
     if (auth.rememberMe) {
-      saveState({
+      localStorageSave({
+        auth
+      });
+    } else {
+      sessionStorageSave({
         auth
       });
     }
