@@ -1,5 +1,6 @@
 import React from 'react';
 import { testIfAuthenticated } from '../auth/authActions';
+import GrommetApp from 'grommet/components/App';
 
 import LoadingPage from '../pages/LoadingPage';
 
@@ -30,9 +31,9 @@ class App extends React.Component {
       content = this.props.children;
     }
     return (
-      <div className='application'>
+      <GrommetApp>
         {content}
-      </div>
+      </GrommetApp>
     );
   }
 }

@@ -6,6 +6,7 @@ import { Icon } from 'react-fa';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { logout } from '../../auth/authActions';
+import { loginRoute, registerRoute} from '../../auth/authConfig';
 
 const itemIconStyle = {
   margin: '12.5px 17px 17px 21px',
@@ -56,8 +57,8 @@ class RightToolBar extends React.Component {
     }
     return (
       <div>
-        <Link to={'/login'}><FlatButton label='Login'/></Link>
-        <Link to={'/register'}><FlatButton label='Register'/></Link>
+        <Link to={loginRoute}><FlatButton label='Login'/></Link>
+        <Link to={registerRoute}><FlatButton label='Register'/></Link>
       </div>
     )
   }

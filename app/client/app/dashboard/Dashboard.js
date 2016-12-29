@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../auth/authActions';
-import Box from 'grommet/components/Box';
-import Value from 'grommet/components/Value';
 
 export class Dashboard extends React.Component {
   constructor(props) {
@@ -13,54 +11,6 @@ export class Dashboard extends React.Component {
     return (
       <div>
         Dashboard (PROTECTED):
-        <Box direction="row"
-             justify="start"
-             align="center"
-             wrap={true}
-             pad="medium"
-             margin="small"
-             colorIndex="light-2"
-        >
-          <Value value={1}
-                 colorIndex="accent-1" />
-          <Box direction="row"
-               justify="start"
-               align="center"
-               wrap={true}
-               pad="medium"
-               margin="small"
-               colorIndex="light-1">
-            <Value value={2} />
-          </Box>
-          <Box direction="row"
-               justify="start"
-               align="center"
-               wrap={true}
-               pad="medium"
-               margin="small"
-               colorIndex="light-1">
-            <Value value={3} />
-          </Box>
-          <Box direction="row"
-               justify="start"
-               align="center"
-               wrap={true}
-               pad="medium"
-               margin="small"
-               colorIndex="light-1"
-          >
-            <Value value={4} />
-          </Box>
-          <Box direction="row"
-               justify="start"
-               align="center"
-               wrap={true}
-               pad="medium"
-               margin="small"
-               colorIndex="light-1">
-            <Value value={5} />
-          </Box>
-        </Box>
       </div>
     );
   }

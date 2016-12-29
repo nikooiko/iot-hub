@@ -2,4 +2,6 @@
 
 export const
   routeAfterAuth = '/dashboard',
-  routeAfterUnauth = '/';
+  routeAfterUnauth = '/',
+  loginRoute = '/auth/login',
+  registerRoute = '/auth/register';

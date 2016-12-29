@@ -47,50 +47,35 @@ class Register extends React.Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        {this.renderAlert()}
         <div>
-          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-            {this.renderAlert()}
-            <div>
-              <Field
-                name='username'
-                className='form-control'
-                component={TextField}
-                type='text'
-                floatingLabelText='Username'
-              />
-            </div>
-            <div>
-              <Field
-                name='password'
-                className='form-control'
-                component={TextField}
-                type='password'
-                floatingLabelText='Password'
-              />
-            </div>
-            <div>
-              <RaisedButton
-                type='submit'
-                label='Register'
-                primary={true}
-                onTouchTap={handleSubmit(this.handleFormSubmit)}
-                className='flex'
-              />
-            </div>
-          </form>
+          <Field
+            name='username'
+            className='form-control'
+            component={TextField}
+            type='text'
+            floatingLabelText='Username'
+          />
         </div>
-        <hr/>
         <div>
-          <Link to='/login'>
-            <RaisedButton
-              label='Login'
-              secondary={true}
-              style={{ width: '100%' }}
-            />
-          </Link>
+          <Field
+            name='password'
+            className='form-control'
+            component={TextField}
+            type='password'
+            floatingLabelText='Password'
+          />
         </div>
-      </div>
+        <div>
+          <RaisedButton
+            type='submit'
+            label='Submit'
+            primary={true}
+            onTouchTap={handleSubmit(this.handleFormSubmit)}
+          />
+        </div>
+      </form>
     );
   }
 }

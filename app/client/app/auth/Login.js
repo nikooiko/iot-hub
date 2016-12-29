@@ -46,7 +46,7 @@ class Login extends React.Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)} style={{border: '1px solid red'}}>
         {this.renderAlert()}
         <div>
           <Field
@@ -76,7 +76,7 @@ class Login extends React.Component {
         <div>
           <RaisedButton
             type='submit'
-            label='Login'
+            label='Submit'
             primary={true}
             onTouchTap={handleSubmit(this.handleFormSubmit)}
           />
