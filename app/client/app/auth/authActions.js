@@ -26,7 +26,10 @@ export const login = (credentials) => {
     return api.post('/AppUsers/login' , credentials)
       .then(response => {
         const rememberMe = credentials.rememberMe;
-        dispatch({ type: AUTH_USER, jwt: response.data.user.jwt, rememberMe });
+        const user = {
+          username: credentials.username
+        };
+        dispatch({ type: AUTH_USER, jwt: response.data.user.jwt, rememberMe, user});
         dispatch(routeActions.push(routeAfterAuth));
       })
       .catch((err) => {
@@ -39,7 +42,10 @@ export const register = (form) => {
   return (dispatch) => {
     api.post('/AppUsers', form)
       .then(response => {
-        dispatch({ type: AUTH_USER, jwt: response.data.user.jwt });
+        const user = {
+          username: form.username
+        };
+        dispatch({ type: AUTH_USER, jwt: response.data.user.jwt, user });
         dispatch(routeActions.push(routeAfterAuth));
       })
       .catch((error) => {

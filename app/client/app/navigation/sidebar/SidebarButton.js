@@ -1,24 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IconButton } from 'material-ui';
-import OpenIcon from 'material-ui/svg-icons/editor/drag-handle'
-import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import { openSidebar, closeSidebar } from './sidebarActions';
+import Box from 'grommet/components/Box';
+import Title from 'grommet/components/Title';
+import SidebarIcon from 'grommet/components/icons/base/Menu';
+import Button from 'grommet/components/Button';
+import NavLogo from '../NavLogo';
+import { openSidebar } from './sidebarActions';
+import bindFunctions from '../../utils/bindFunctions';
 
 class Sidebar extends React.Component {
+  constructor(props, content) {
+    super(props, content);
+    bindFunctions(this, ['_onClick']);
+  }
+
+  _onClick() {
+    this.props.openSidebar();
+  }
+
   render() {
-    if (this.props.authenticated) {
-      if (this.props.opened) {
-        return (
-          <IconButton onTouchTap={() => this.props.closeSidebar()}>
-            <CloseIcon/>
-          </IconButton>
-        );
-      }
+    if (this.props.authenticated && !this.props.opened) {
       return (
-        <IconButton onTouchTap={() => this.props.openSidebar()}>
-          <OpenIcon/>
-        </IconButton>
+        <Box
+          direction='row' pad={{ between: 'medium' }} onClick={this._onClick} responsive={false}
+        >
+          <Button
+            icon={<SidebarIcon />}
+            plain={true}
+            a11yTitle='Open Sidebar'
+            onClick={() => {}}
+          />
+          <Title a11yTitle='Open Sidebar'>
+            <NavLogo />
+          </Title>
+        </Box>
       )
     }
     return null;
@@ -30,4 +45,4 @@ const mapStateToProps = (state) => ({
   authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps, { openSidebar, closeSidebar })(Sidebar);
+export default connect(mapStateToProps, { openSidebar })(Sidebar);

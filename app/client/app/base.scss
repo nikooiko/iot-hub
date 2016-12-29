@@ -5,9 +5,8 @@ $mainColor: #bf976f;
 $mainBGColor: #3a3a3c;
 
 // Logo dimensions
-.logo {
-  max-width: 96%;
-  max-height: 96%;
+.nav-logo {
+  max-width: 200px !important;
 }
 
 // Debug TODO Exclude
@@ -21,4 +20,26 @@ $mainBGColor: #3a3a3c;
 
 .blue-border {
   border: 1px dotted blue;
+}
+
+.#{$grommet-namespace}sidebar {
+  @include media-query(lap-and-up) {
+    @include animation('slide-sidebar 0.2s');
+  }
+}
+
+@include keyframes(slide-sidebar) {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: $sidebar-width;
+  }
+}
+
+@media screen and (max-width: $break-portable-max-width) {
+  .nav-logo {
+    max-width: 150px !important;
+  }
 }

@@ -4,10 +4,10 @@ import { AUTH_USER,
 
 const INITIAL_STATE = {
   error: '',
-  content: '',
   authenticated: false,
   jwt: null,
   rememberMe: false,
+  user: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,10 +17,11 @@ export default (state = INITIAL_STATE, action) => {
         error: '',
         authenticated: true,
         jwt: action.jwt,
-        rememberMe: action.rememberMe
+        rememberMe: action.rememberMe,
+        user: action.user
       };
     case UNAUTH_USER:
-      return { ...state, authenticated: false, jwt: null };
+      return { ...state, authenticated: false, jwt: null, user: null};
     case AUTH_ERROR:
       return { ...state, error: action.payload };
     default:

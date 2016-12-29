@@ -21,8 +21,8 @@ class Auth extends React.Component {
     const imgUrl = '/static/IotHub-logo.png';
     return (
       <Article>
-        <Columns size='small' justify='center' masonry={true}>
-          <Box align='center'>
+        <Box full={true} colorIndex='light-2'>
+          <Columns size='small' justify='center' masonry={true}>
             <Link to={'/'}>
               <Hero
                 background={<Image src={imgUrl} full={true} />}
@@ -30,19 +30,17 @@ class Auth extends React.Component {
                 size='small'
               />
             </Link>
-          </Box>
-          <Box align='center'>
             <Tabs activeIndex={(currentUrl === loginRoute) ? 0 : 1} responsive={false}>
               <Tab title='Login' onTouchTap={() => this.context.router.push(loginRoute)}>
               </Tab>
               <Tab title='Register' onTouchTap={() => this.context.router.push(registerRoute)}>
               </Tab>
             </Tabs>
-          </Box>
-          <Box align='center'>
-            {this.props.children}
-          </Box>
-        </Columns>
+            <Box align='center'>
+              {this.props.children}
+            </Box>
+          </Columns>
+        </Box>
       </Article>
     );
   }

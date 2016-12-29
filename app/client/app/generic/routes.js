@@ -7,7 +7,7 @@ import App from './App.js';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import Auth from '../auth/Auth';
-import Container from '../layout/Container';
+import AppContainer from '../layout/AppContainer';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import HomePage from '../pages/HomePage';
@@ -16,14 +16,14 @@ import { closeSidebar } from '../navigation/sidebar/sidebarActions';
 
 export default (store) => {
   const routeChangeHandler = () => {
-    if (store.getState().sidebar.opened) {
-      store.dispatch(closeSidebar());
-    }
+    // if (store.getState().sidebar.opened) { // TODO decide if enabled or not
+    //   store.dispatch(closeSidebar());
+    // }
   };
 
   return (
     <Route path='/' component={App} onChange={routeChangeHandler}>
-      <Route path='' component={Container}>
+      <Route path='' component={AppContainer}>
         <IndexRoute components={HomePage}/>
         <Route path='dashboard' component={RequireAuth(Dashboard)} />
       </Route>

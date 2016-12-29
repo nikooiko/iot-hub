@@ -4,8 +4,6 @@ import GrommetApp from 'grommet/components/App';
 
 import LoadingPage from '../pages/LoadingPage';
 
-
-
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -31,7 +29,7 @@ class App extends React.Component {
       content = this.props.children;
     }
     return (
-      <GrommetApp>
+      <GrommetApp centered={false}>
         {content}
       </GrommetApp>
     );
