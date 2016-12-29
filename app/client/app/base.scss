@@ -1,25 +1,24 @@
+@import '~grommet/scss/vanilla/index';
+
 // Main Colors
 $mainColor: #bf976f;
 $mainBGColor: #3a3a3c;
-
-html {
-  padding: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-div {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
 
 // Logo dimensions
 .logo {
   max-width: 96%;
   max-height: 96%;
+}
+
+// Debug TODO Exclude
+.red-border {
+  border: 1px solid red;
+}
+
+.green-border {
+  border: 1px double green;
+}
+
+.blue-border {
+  border: 1px dotted blue;
 }

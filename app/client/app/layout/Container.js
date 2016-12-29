@@ -6,11 +6,11 @@ class Container extends React.Component {
   render() {
     return (
       <div className='container'>
-        <Header/>
-        <div className='content'>
-          {this.props.children}
-        </div>
-        <Footer/>
+        {/*<Header/>*/}
+        {/*<div className='content'>*/}
+          {/*{this.props.children}*/}
+        {/*</div>*/}
+        {/*<Footer/>*/}
       </div>
     )
   }

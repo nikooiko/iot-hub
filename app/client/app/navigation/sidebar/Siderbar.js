@@ -52,13 +52,13 @@ class Sidebar extends React.Component {
           leftIcon={<Icon name='home' size='lg' style={itemIconStyle}/>}
           primaryText='Home'
           containerElement={<Link to='/'/>}
-          style={(currentUrl == '/') ? activeStyle : {}}
+          style={(currentUrl === '/') ? activeStyle : {}}
         />
         <MenuItem
           leftIcon={<Icon name='tachometer' size='lg' style={itemIconStyle} />}
           primaryText='Dashboard'
           containerElement={<Link to='/dashboard'/>}
-          style={(currentUrl == '/dashboard') ? activeStyle : {}}
+          style={(currentUrl === '/dashboard') ? activeStyle : {}}
         />
       </Drawer>
     )
