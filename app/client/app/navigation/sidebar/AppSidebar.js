@@ -8,7 +8,7 @@ import Sidebar from 'grommet/components/Sidebar';
 import CloseIcon from 'grommet/components/icons/base/Close'
 import Anchor from 'grommet/components/Anchor';
 import DashboardIcon from 'grommet/components/icons/base/Dashboard';
-import HomeIcon from 'grommet/components/icons/base/Home';
+import DeviceIcon from 'grommet/components/icons/base/Robot';
 import NavLogo from '../NavLogo';
 import { closeSidebar } from './sidebarActions';
 import bindFunctions from '../../utils/bindFunctions';
@@ -46,17 +46,13 @@ class AppSidebar extends React.Component {
         <Menu fill={true} primary={true}>
           <Anchor
             primary={false}
-            path={'/'} label={'Home'} animateIcon={true}
-            icon={<HomeIcon />}
-          />
-          <Anchor
-            primary={false}
             path={'/dashboard'} label={'Dashboard'} animateIcon={true}
             icon={<DashboardIcon />}
           />
           <Anchor
             primary={false}
-            path={'/dummy'} label={'dummy'}
+            path={'/devices'} label={'Devices'} animateIcon={true}
+            icon={<DeviceIcon />}
           />
         </Menu>
       </Sidebar>

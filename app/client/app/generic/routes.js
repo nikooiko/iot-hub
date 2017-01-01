@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect, IndexRedirect } from 'react-router';
 
-import App from './App.js';
-
 // Components
+import App from './App.js';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import Auth from '../auth/Auth';
@@ -11,8 +10,8 @@ import AppContainer from '../layout/AppContainer';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import HomePage from '../pages/HomePage';
-import Dashboard from '../dashboard/Dashboard';
-import { closeSidebar } from '../navigation/sidebar/sidebarActions';
+import Dashboard from '../content/Dashboard';
+import Devices from '../content/devices/Devices';
 
 export default (store) => {
   const routeChangeHandler = () => {
@@ -23,9 +22,10 @@ export default (store) => {
 
   return (
     <Route path='/' component={App} onChange={routeChangeHandler}>
-      <Route path='' component={AppContainer}>
-        <IndexRoute components={HomePage}/>
-        <Route path='dashboard' component={RequireAuth(Dashboard)} />
+      <IndexRoute components={RequireUnauth(HomePage)}/>
+      <Route path='' component={RequireAuth(AppContainer)}>
+        <Route path='dashboard' component={Dashboard} />
+        <Route path='devices' component={Devices} />
       </Route>
       <Route path='auth/' component={RequireUnauth(Auth)}>
         <IndexRedirect to='/'/>

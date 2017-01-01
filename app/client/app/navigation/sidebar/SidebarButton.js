@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
-import Title from 'grommet/components/Title';
 import SidebarIcon from 'grommet/components/icons/base/Menu';
 import Button from 'grommet/components/Button';
-import NavLogo from '../NavLogo';
 import { openSidebar } from './sidebarActions';
 import bindFunctions from '../../utils/bindFunctions';
 
@@ -30,9 +28,6 @@ class Sidebar extends React.Component {
             a11yTitle='Open Sidebar'
             onClick={() => {}}
           />
-          <Title a11yTitle='Open Sidebar'>
-            <NavLogo />
-          </Title>
         </Box>
       )
     }

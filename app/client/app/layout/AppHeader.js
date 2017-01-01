@@ -4,7 +4,7 @@ import Navbar from '../navigation/Navbar';
 class AppHeader extends React.Component {
   render() {
     return (
-      <Navbar/>
+      <Navbar page={this.props.page}/>
     )
   }
 }

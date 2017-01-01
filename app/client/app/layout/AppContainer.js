@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Split from 'grommet/components/Split';
 import Article from 'grommet/components/Article';
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
 import AppSidebar from '../navigation/sidebar/AppSidebar';
 
 
@@ -14,10 +12,8 @@ class AppContainer extends React.Component {
     return (
       <Split fixed={true} flex={'right'} priority={priority}>
         <AppSidebar/>
-        <Article>
-          <AppHeader/>
+        <Article colorIndex='light-1'>
           { this.props.children }
-          <AppFooter/>
         </Article>
       </Split>
     )
