@@ -31,7 +31,7 @@ class AppSidebar extends React.Component {
     return (
       <Sidebar colorIndex='neutral-1' fixed={true} size={'medium'}>
         <Header
-          size='large' pad={{ horizontal: 'medium', between: 'medium' }} onClick={this._onClose}
+          size='medium' pad={{ horizontal: 'medium', between: 'medium' }} onClick={this._onClose}
         >
           <Button
             icon={<CloseIcon />}

@@ -9,7 +9,7 @@ import Auth from '../auth/Auth';
 import AppContainer from '../layout/AppContainer';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
-import HomePage from '../pages/HomePage';
+import Home from '../home/Home';
 import Dashboard from '../content/Dashboard';
 import Devices from '../content/devices/Devices';
 
@@ -22,7 +22,7 @@ export default (store) => {
 
   return (
     <Route path='/' component={App} onChange={routeChangeHandler}>
-      <IndexRoute components={RequireUnauth(HomePage)}/>
+      <IndexRoute components={RequireUnauth(Home)}/>
       <Route path='' component={RequireAuth(AppContainer)}>
         <Route path='dashboard' component={Dashboard} />
         <Route path='devices' component={Devices} />

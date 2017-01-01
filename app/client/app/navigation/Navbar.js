@@ -18,7 +18,7 @@ class Navbar extends React.Component {
 
     return (
       <Header
-        size='large' pad={{ horizontal: 'medium', between: 'medium' }}
+        size='medium' pad={{ horizontal: 'medium', between: 'medium' }}
         colorIndex='neutral-1'
       >
         <SidebarButton/>
