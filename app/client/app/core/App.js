@@ -4,6 +4,7 @@ import GrommetApp from 'grommet/components/App';
 
 import LoadingPage from '../pages/LoadingPage';
 
+// TODO change testIf... flow
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);

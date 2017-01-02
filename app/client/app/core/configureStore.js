@@ -5,6 +5,7 @@ import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import { browserHistory } from 'react-router'
 import { syncHistory } from 'redux-simple-router'
+import { responsiveStoreEnhancer } from 'redux-responsive'
 import reducers from './reducers';
 import { loadState as localStorageLoad, saveState as localStorageSave } from './localStorage';
 import { loadState as sessionStorageLoad, saveState as sessionStorageSave } from './sessionStorage';
@@ -12,19 +13,23 @@ import { loadState as sessionStorageLoad, saveState as sessionStorageSave } from
 const configureStore = () => {
   const sessionStorageState = sessionStorageLoad();
   const localStorageState = localStorageLoad();
-  const persistedState =
+  let persistedState =
     (sessionStorageState && sessionStorageState.auth ? sessionStorageState : false) ||
-    (localStorageState && localStorageState.auth ? localStorageState : {});
+    (localStorageState && localStorageState.auth ? localStorageState : false);
+  if (!persistedState) {
+    persistedState = {};
+  }
 
   const reduxRouter = syncHistory(browserHistory);
   const middlewares = [
     reduxRouter,
     thunk,
     promise,
-    process.env.NODE_ENV !== 'production' && createLogger(),
+    process.env.NODE_ENV !== 'production' && createLogger()
   ].filter(Boolean);
 
   const enhancer = compose(
+    responsiveStoreEnhancer,
     applyMiddleware(...middlewares),
   );
   // finally create store and apply the middlewares

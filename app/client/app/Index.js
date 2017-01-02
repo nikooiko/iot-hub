@@ -1,14 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './generic/Root';
+import Root from './core/Root';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import configureStore from './generic/configureStore';
+import configureStore from './core/configureStore';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 import './base.scss';
-import 'grommet/scss/vanilla/index.scss';
 
 // Needed for onTouchTap
 // TODO delete when unneeded
