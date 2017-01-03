@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
 import Image from 'grommet/components/Image';
-import Columns from 'grommet/components/Columns';
+import Tiles from 'grommet/components/Tiles';
+import Tile from 'grommet/components/Tile';
 import Headline from 'grommet/components/Headline';
 
 const grommetLogo = '/static/technologies/grommet-logo.png';
@@ -13,36 +15,42 @@ const nodejsLogo = '/static/technologies/nodejs-logo.png';
 
 class Technologies extends React.Component {
   render() {
+    const imgSize = this.props.mediaType === 'palm' ? 'thumb' : 'small';
+
     return (
-      <Box basis='full' justify='center' className='blue-border'>
+      <Box basis='full' justify='center'>
         <Headline strong={true}>
           Technologies
         </Headline>
-        <Columns
-          maxCount={1}
-          size='small' justify='center' className='red-border' responsive={false}
+        <Tiles
+          flush={true} size='small' justify='center' responsive={false}
         >
-          <Box margin='medium' align='center' className='circle-border' pad='medium'>
-            <Image src={reactLogo} alt='React' size='small'/>
-          </Box>
-          <Box margin='medium' align='center'  className='circle-border' pad='medium'>
-            <Image src={grommetLogo} alt='Grommet' size='small'/>
-          </Box>
-          <Box margin='medium' align='center'  className='circle-border' pad='medium'>
-            <Image src={lbLogo} alt='Loopback' size='small'/>
-          </Box>
-          <Box margin='medium' align='center'  className='circle-border' pad='medium'>
-            <Image src={mongodbLogo} alt='MongoDB' size='small'/>
-          </Box>
-          <Box margin='medium' align='center'  className='circle-border' pad='medium'>
-            <Image src={reduxLogo} alt='Redux' size='small'/>
-          </Box>
-          <Box margin='medium' align='center'  className='circle-border' pad='medium'>
-            <Image src={nodejsLogo} alt='NodeJS' size='small'/>
-          </Box>
-        </Columns>
+          <Tile pad='small'>
+            <Image src={reactLogo} alt='React' size={imgSize} className='technology-logo'/>
+          </Tile>
+          <Tile pad='small'>
+            <Image src={grommetLogo} alt='Grommet' size={imgSize} className='technology-logo'/>
+          </Tile>
+          <Tile pad='small'>
+            <Image src={lbLogo} alt='Loopback' size={imgSize} className='technology-logo'/>
+          </Tile>
+          <Tile pad='small'>
+            <Image src={mongodbLogo} alt='MongoDB' size={imgSize} className='technology-logo'/>
+          </Tile>
+          <Tile pad='small'>
+            <Image src={reduxLogo} alt='Redux' size={imgSize} className='technology-logo'/>
+          </Tile>
+          <Tile pad='small'>
+            <Image src={nodejsLogo} alt='NodeJS' size={imgSize} className='technology-logo'/>
+          </Tile>
+        </Tiles>
       </Box>
     )
   }
 }
-export default Technologies;
+
+const mapStateToProps = (state) => ({
+  mediaType: state.browser.mediaType
+});
+
+export default connect(mapStateToProps)(Technologies);

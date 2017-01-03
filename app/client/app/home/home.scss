@@ -8,11 +8,7 @@
   z-index: 10;
 }
 
-.intro-title {
-  border: 5px solid $brand-color;
-}
-
-.circle-border {
+.technology-logo {
   border: 1px solid transparent;
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -20,6 +16,10 @@
   box-shadow: 0 0 8px $brand-color;
   -webkit-box-shadow: 0 0 8px $brand-color;
   -moz-box-shadow: 0 0 8px $brand-color;
+}
+
+.intro-title {
+  border: 5px solid $brand-color;
 }
 
 .section-slide-down-enter {

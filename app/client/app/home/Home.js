@@ -18,7 +18,7 @@ class Home extends React.Component {
   constructor(props, content) {
     super(props, content);
     bindFunctions(this,
-      ['_onSectionUp', '_onSectionDown', '_onSectionSelect']);
+      ['_onSelect', '_onSectionUp', '_onSectionDown', '_onSectionSelect']);
 
     this.state = {
       selected: 0
@@ -32,17 +32,6 @@ class Home extends React.Component {
       ...this.state,
       selected
     });
-  }
-
-  _onWheel(event) {
-    event.preventDefault();
-
-    const deltaY = event.deltaY;
-    if (deltaY > 0) { // means Down
-      this._onSectionDown();
-    } else {
-      this._onSectionUp();
-    }
   }
 
   _onSectionUp() {
@@ -83,7 +72,7 @@ class Home extends React.Component {
     return (
       <Article
         style={{overflow:'hidden'}} colorIndex='light-2'
-        selected={selected} scrollStep={true}
+        selected={selected} scrollStep={true} onSelect={this._onSelect}
       >
         <Section
           full={true} pad='none' key='intro'
