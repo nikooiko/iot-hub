@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
 import Intro from './sections/Intro';
-import Page2 from './sections/Iot';
-import Page3 from './sections/Users';
+import Iot from './sections/Iot';
+import Users from './sections/Users';
 import Page4 from './sections/Page4';
+import Technologies from './sections/Technologies';
 import SectionButton from './SectionButton';
 import bindFunctions from '../utils/bindFunctions';
 
@@ -18,7 +18,7 @@ class Home extends React.Component {
     bindFunctions(this, ['_onSectionDown', '_onSectionUp', '_onWheel']);
 
     this.state = {
-      selected: 0,
+      selected: 4,
       slide: 'up'
     };
 
@@ -36,7 +36,7 @@ class Home extends React.Component {
           full={true} pad='none' colorIndex='accent-1' key='page-2'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Page2/>
+          <Iot/>
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
       ),
@@ -45,16 +45,25 @@ class Home extends React.Component {
           full={true} pad='none' key='page-3'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Page3/>
+          <Users/>
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
       ),
       (
         <Section
-          full={true} pad='none' colorIndex='brand' key='page-3'
+          full={true} pad='none' colorIndex='brand' key='page-4'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
           <Page4/>
+          <SectionButton _onClick={this._onSectionDown} direction='down'/>
+        </Section>
+      ),
+      (
+        <Section
+          full={true} pad='none' key='technologies'
+        >
+          <SectionButton _onClick={this._onSectionUp} direction='up'/>
+          <Technologies/>
         </Section>
       )
     ];
@@ -106,9 +115,7 @@ class Home extends React.Component {
         onScroll={this.onWheel}
       >
         <div className='progress' style={{width: `${progress}%`}}/>
-        <div>
-          {currSection}
-        </div>
+        {currSection}
       </Article>
     )
   }
