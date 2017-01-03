@@ -20,6 +20,7 @@ class SectionButton extends React.Component {
       <Box onClick={this.props._onClick}>
         {this.label}
         <Button
+          plain={true}
           onClick={() => {}}
           icon={this.icon}
         />

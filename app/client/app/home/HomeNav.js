@@ -1,6 +1,7 @@
 import React from 'react';
 import Menu from 'grommet/components/Menu';
 import Box from 'grommet/components/Box';
+import Button from 'grommet/components/Button';
 import Header from 'grommet/components/Header';
 import Anchor from 'grommet/components/Anchor';
 import LoginIcon from 'grommet/components/icons/base/Login';
@@ -22,8 +23,18 @@ class HomeNav extends React.Component {
           <NavLogo color='white'/>
         </Anchor>
         <Box className='hide-portable' direction='row' pad={{ between: 'medium' }}>
-          <Anchor label='Page1' path={'/'} animateIcon={true}/>
-          <Anchor label='Page2' path={'/'} animateIcon={true}/>
+          <Button
+            label='Iot' plain={true}
+            onClick={() => this.props._onSectionSelect('iot')}
+          />
+          <Button
+            label='Users' plain={true}
+            onClick={() => this.props._onSectionSelect('users')}
+          />
+          <Button
+            label='Technologies' plain={true}
+            onClick={() => this.props._onSectionSelect('technologies')}
+          />
         </Box>
         <Box direction='row' justify='end' flex={true} responsive={false}>
           <Menu

@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from 'grommet/components/Box';
 import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
 import Intro from './sections/Intro';
@@ -8,6 +9,7 @@ import Page4 from './sections/Page4';
 import Technologies from './sections/Technologies';
 import SectionButton from './SectionButton';
 import bindFunctions from '../utils/bindFunctions';
+import HomeNav from './HomeNav';
 
 // TODO report bug with Auth Menu
 // TODO step navigation
@@ -15,61 +17,26 @@ import bindFunctions from '../utils/bindFunctions';
 class Home extends React.Component {
   constructor(props, content) {
     super(props, content);
-    bindFunctions(this, ['_onSectionDown', '_onSectionUp', '_onWheel']);
+    bindFunctions(this,
+      ['_onSectionUp', '_onSectionDown', '_onSectionSelect']);
 
     this.state = {
-      selected: 4,
-      slide: 'up'
+      selected: 0
     };
 
-    this.sections = [
-      (
-        <Section
-          full={true} pad='none' key='intro'
-        >
-          <Intro/>
-          <SectionButton _onClick={this._onSectionDown} direction='down'/>
-        </Section>
-      ),
-      (
-        <Section
-          full={true} pad='none' colorIndex='accent-1' key='page-2'
-        >
-          <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Iot/>
-          <SectionButton _onClick={this._onSectionDown} direction='down'/>
-        </Section>
-      ),
-      (
-        <Section
-          full={true} pad='none' key='page-3'
-        >
-          <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Users/>
-          <SectionButton _onClick={this._onSectionDown} direction='down'/>
-        </Section>
-      ),
-      (
-        <Section
-          full={true} pad='none' colorIndex='brand' key='page-4'
-        >
-          <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Page4/>
-          <SectionButton _onClick={this._onSectionDown} direction='down'/>
-        </Section>
-      ),
-      (
-        <Section
-          full={true} pad='none' key='technologies'
-        >
-          <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Technologies/>
-        </Section>
-      )
-    ];
+    this.sections = ['intro', 'iot', 'users', 'page-4', 'technologies'];
+  }
+
+  _onSelect(selected) {
+    this.setState({
+      ...this.state,
+      selected
+    });
   }
 
   _onWheel(event) {
+    event.preventDefault();
+
     const deltaY = event.deltaY;
     if (deltaY > 0) { // means Down
       this._onSectionDown();
@@ -84,8 +51,17 @@ class Home extends React.Component {
       const selected = currState.selected - 1;
       this.setState({
         ...currState,
-        selected,
-        slide: 'down'
+        selected
+      });
+    }
+  }
+
+  _onSectionSelect(sectionName) {
+    const selected = this.sections.indexOf(sectionName);
+    if (selected !== -1) {
+      this.setState({
+        ...this.state,
+        selected
       });
     }
   }
@@ -96,26 +72,56 @@ class Home extends React.Component {
       const selected = currState.selected + 1;
       this.setState({
         ...currState,
-        selected,
-        slide: 'up'
+        selected
       });
     }
   }
 
-  // TODO fix scroll and onTouchMove
   render() {
     const selected = this.state.selected;
-    const currSection = this.sections[selected];
     const progress = selected / (this.sections.length - 1) * 100;
     return (
       <Article
-        colorIndex='light-2' full={true} scrollStep={true}
-        onWheel={this._onWheel}
-        onTouchMove={this._onWheel}
-        onScroll={this.onWheel}
+        style={{overflow:'hidden'}} colorIndex='light-2'
+        selected={selected} scrollStep={true}
       >
-        <div className='progress' style={{width: `${progress}%`}}/>
-        {currSection}
+        <Section
+          full={true} pad='none' key='intro'
+        >
+          <div className='progress' style={{width: `${progress}%`}}/>
+          <Box full='horizontal'>
+            <HomeNav _onSectionSelect={this._onSectionSelect}/>
+          </Box>
+          <Intro/>
+          <SectionButton _onClick={this._onSectionDown} direction='down'/>
+        </Section>
+        <Section
+          full={true} pad='none' colorIndex='accent-1' key='page-2'
+        >
+          <SectionButton _onClick={this._onSectionUp} direction='up'/>
+          <Iot/>
+          <SectionButton _onClick={this._onSectionDown} direction='down'/>
+        </Section>
+        <Section
+          full={true} pad='none' key='users'
+        >
+          <SectionButton _onClick={this._onSectionUp} direction='up'/>
+          <Users/>
+          <SectionButton _onClick={this._onSectionDown} direction='down'/>
+        </Section>
+        <Section
+          full={true} pad='none' colorIndex='brand' key='page-4'
+        >
+          <SectionButton _onClick={this._onSectionUp} direction='up'/>
+          <Page4/>
+          <SectionButton _onClick={this._onSectionDown} direction='down'/>
+        </Section>
+        <Section
+          full={true} pad='none' key='technologies'
+        >
+          <SectionButton _onClick={this._onSectionUp} direction='up'/>
+          <Technologies/>
+        </Section>
       </Article>
     )
   }

@@ -10,8 +10,8 @@ import AppContainer from '../layout/AppContainer';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import Home from '../home/Home';
-import Dashboard from '../content/Dashboard';
-import Devices from '../content/devices/Devices';
+import Dashboard from '../dashboard/Dashboard';
+import Devices from '../dashboard/devices/Devices';
 
 export default (store) => {
   const routeChangeHandler = () => {
