@@ -21,12 +21,19 @@ const nodejsLogo = '/static/technologies/nodejs-logo.png';
 
 class About extends React.Component {
   render() {
-    const imgSize = this.props.mediaType === 'palm' ? 'thumb' : 'small';
+    let imgSize = 'small';
+    let headlineSize = 'medium';
+    // Calculate Responsive values
+    const mediaType = this.props.mediaType;
+    if (mediaType === 'palm') {
+      headlineSize = 'small';
+      imgSize = 'thumb';
+    }
 
     return (
       <Box flex={true} responsive={false} justify='between'>
-        <Box>
-          <Headline strong={true}>
+        <Box justify='center' flex={true}>
+          <Headline strong={true} size={headlineSize}>
             Technologies Used
           </Headline>
           <Tiles
