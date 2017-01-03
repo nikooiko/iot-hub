@@ -6,7 +6,7 @@ import HomeLogo from '../HomeLogo';
 class Intro extends React.Component {
   render() {
     return (
-      <Box flex={true}>
+      <Box flex={true} responsive={false}>
         <Box direction='row' flex={true} justify='center'>
           <Box basis='2/3' justify='center' pad={{ vertical: 'large' }}>
             <Box basis='2/3' justify='end' pad={{ vertical: 'large' }}>

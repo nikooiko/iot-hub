@@ -24,16 +24,20 @@ class HomeNav extends React.Component {
         </Anchor>
         <Box className='hide-portable' direction='row' pad={{ between: 'medium' }}>
           <Button
-            label='Iot' plain={true}
+            label='IOT' plain={true}
             onClick={() => this.props._onSectionSelect('iot')}
           />
           <Button
-            label='Users' plain={true}
-            onClick={() => this.props._onSectionSelect('users')}
+            label='Community' plain={true}
+            onClick={() => this.props._onSectionSelect('community')}
           />
           <Button
-            label='Technologies' plain={true}
-            onClick={() => this.props._onSectionSelect('technologies')}
+            label='Join' plain={true}
+            onClick={() => this.props._onSectionSelect('join')}
+          />
+          <Button
+            label='About' plain={true}
+            onClick={() => this.props._onSectionSelect('about')}
           />
         </Box>
         <Box direction='row' justify='end' flex={true} responsive={false}>

@@ -6,7 +6,7 @@ import MeasureIcon from 'grommet/components/icons/base/Rss';
 import CollectIcon from 'grommet/components/icons/base/Database';
 import AnalyzeIcon from 'grommet/components/icons/base/LineChart';
 
-class Iot extends React.Component {
+class Join extends React.Component {
   render() {
     return (
       <Box flex={true} responsive={false}>
@@ -56,4 +56,4 @@ class Iot extends React.Component {
     )
   }
 }
-export default Iot;
+export default Join;

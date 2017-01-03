@@ -4,15 +4,12 @@ import Article from 'grommet/components/Article';
 import Section from 'grommet/components/Section';
 import Intro from './sections/Intro';
 import Iot from './sections/Iot';
-import Users from './sections/Users';
-import Page4 from './sections/Page4';
-import Technologies from './sections/Technologies';
+import Community from './sections/Community';
+import Join from './sections/Join';
+import About from './sections/About';
 import SectionButton from './SectionButton';
 import bindFunctions from '../utils/bindFunctions';
 import HomeNav from './HomeNav';
-
-// TODO report bug with Auth Menu
-// TODO step navigation
 
 class Home extends React.Component {
   constructor(props, content) {
@@ -21,10 +18,10 @@ class Home extends React.Component {
       ['_onSelect', '_onSectionUp', '_onSectionDown', '_onSectionSelect']);
 
     this.state = {
-      selected: 0
+      selected: 3 // TODO 0
     };
 
-    this.sections = ['intro', 'iot', 'users', 'page-4', 'technologies'];
+    this.sections = ['intro', 'iot', 'community', 'join', 'about'];
   }
 
   _onSelect(selected) {
@@ -75,7 +72,7 @@ class Home extends React.Component {
         selected={selected} scrollStep={true} onSelect={this._onSelect}
       >
         <Section
-          full={true} pad='none' key='intro'
+          full={true} pad='none'
         >
           <div className='progress' style={{width: `${progress}%`}}/>
           <Box full='horizontal'>
@@ -85,31 +82,31 @@ class Home extends React.Component {
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
         <Section
-          full={true} pad='none' colorIndex='accent-1' key='page-2'
+          full={true} pad='none' colorIndex='accent-1'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
           <Iot/>
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
         <Section
-          full={true} pad='none' key='users'
+          full={true} pad='none'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Users/>
+          <Community/>
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
         <Section
-          full={true} pad='none' colorIndex='brand' key='page-4'
+          full={true} pad='none' colorIndex='brand'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Page4/>
+          <Join/>
           <SectionButton _onClick={this._onSectionDown} direction='down'/>
         </Section>
         <Section
-          full={true} pad='none' key='technologies'
+          full={true} pad='none'
         >
           <SectionButton _onClick={this._onSectionUp} direction='up'/>
-          <Technologies/>
+          <About _onSectionSelect={this._onSectionSelect}/>
         </Section>
       </Article>
     )

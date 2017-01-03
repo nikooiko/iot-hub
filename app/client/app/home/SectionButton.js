@@ -11,14 +11,12 @@ class SectionButton extends React.Component {
       this.icon = <UpIcon/>;
     } else {
       this.icon = <DownIcon/>;
-      this.label = 'scroll down to continue';
     }
   }
 
   render() {
     return (
       <Box onClick={this.props._onClick}>
-        {this.label}
         <Button
           plain={true}
           onClick={() => {}}
