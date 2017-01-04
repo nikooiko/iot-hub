@@ -1,6 +1,9 @@
 FROM node
 
-## Create app directory
+# Install webpack for front end build
+RUN npm install webpack -g
+
+# Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
@@ -24,11 +27,11 @@ USER root
 RUN chown -R app:app /usr/src/app
 USER app
 
-# Set Node environment to production
-ENV NODE_ENV production
+# Set Node environment to production TODO change to production
+ENV NODE_ENV development
 
-# Build frontend resources
-RUN npm run build-front
+# Build frontend resources TODO change to prodcution
+RUN npm run build-front-dev
 
 # Mark web service port exposed
 EXPOSE 3000
