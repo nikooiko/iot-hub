@@ -1,1 +1,1 @@
-export const REQUEST_USERS_PER_CONTINENT = 'request_users_per_continent';
+export const REQ_POPULATION_PER_CONTINENT = 'request_users_per_continent';

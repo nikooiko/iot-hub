@@ -1,15 +1,15 @@
-import { REQUEST_USERS_PER_CONTINENT } from './homeTypes';
+import { REQ_POPULATION_PER_CONTINENT } from './homeTypes';
 
 const INITIAL_STATE = {
-  users: null
+  populationPerContinent: null
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
-    case REQUEST_USERS_PER_CONTINENT:
+    case REQ_POPULATION_PER_CONTINENT:
       return {
         ...state,
-        users: action.users
+        populationPerContinent: action.populationPerContinent
       };
     default:
       return state;

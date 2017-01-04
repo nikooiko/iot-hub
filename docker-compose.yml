@@ -1,10 +1,10 @@
 version: "2"
 services:
-  iot-platform:
-    image: iot-platform-image
+  iot-hub:
+    image: iot-hub-image
     environment:
       NODE_ENV: 'development'
-      MONGOURL: 'mongodb://mongo/iot-platform'
+      MONGOURL: 'mongodb://mongo/iot-hub'
     depends_on:
       - mongo
   mongo:

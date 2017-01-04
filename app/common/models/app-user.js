@@ -54,7 +54,7 @@ module.exports = (AppUser) => {
     http: {
       verb: 'post',
       status: 200,
-      errorStatus: 400,
+      errorStatus: 400
     },
     isStatic: true,
     accepts: [{
@@ -79,6 +79,34 @@ module.exports = (AppUser) => {
     });
   };
 
+  AppUser.remoteMethod('populationPerContinent', {
+    description: 'The functionality get number of users per continent',
+    http: {
+      verb: 'post',
+      status: 200,
+      errorStatus: 400
+    },
+    isStatic: true,
+    accepts: [],
+    returns: [{
+      arg: 'populationPerContinent',
+      description: 'An object that holds each continent and the number of users that belong to it',
+      type: 'object'
+    }]
+  });
+
+  AppUser.populationPerContinent = (cb) => {
+    //TODO; dummy for now
+    const populationPerContinent = {
+      NorthAmerica: 25,
+      SouthAmerica: 0,
+      Europe: 100,
+      Africa: 0,
+      Australia: 0,
+      Asia: 10
+    };
+    cb(null, populationPerContinent);
+  };
 
   // utils.disableUnusedRemotes(AppUser); // Disable unneeded remote hooks
   // /**
@@ -296,4 +324,10 @@ module.exports = (AppUser) => {
   //   if (!cb) return opPromise;
   //   return 0;
   // };
+
+  // Validations
+  AppUser.validatesInclusionOf('continent', {
+    in: ['NorthAmerica', 'SouthAmerica', 'Europe', 'Africa', 'Australia', 'Asia'],
+    message: 'invalid continent'
+  });
 };

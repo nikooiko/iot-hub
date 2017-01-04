@@ -1,12 +1,12 @@
 import api from '../../utils/api';
-import { REQUEST_USERS_PER_CONTINENT } from './homeTypes';
+import { REQ_POPULATION_PER_CONTINENT } from './homeTypes';
 
-export const requestUsersPerContinent = () => {
+export const reqPopulationPerContinent = () => {
   return (dispatch) => {
-    return api.post('/AppUsers/perContinent')
+    return api.post('/AppUsers/populationPerContinent')
       .then(response => {
-        const users = response.data.users;
-        dispatch({ type: REQUEST_USERS_PER_CONTINENT, users });
+        const populationPerContinent = response.data.populationPerContinent;
+        dispatch({ type: REQ_POPULATION_PER_CONTINENT, populationPerContinent });
       });
   }
 };
