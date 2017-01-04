@@ -9,6 +9,7 @@ import Headline from 'grommet/components/Headline';
 import Button from 'grommet/components/Button';
 import Paragraph from 'grommet/components/Paragraph';
 import TopIcon from 'grommet/components/icons/base/Up';
+import Anchor from 'grommet/components/Anchor';
 
 import Logo from '../../common/Logo';
 
@@ -40,22 +41,34 @@ class About extends React.Component {
             flush={true} size='small' justify='center' responsive={false}
           >
             <Tile pad='small'>
-              <Image src={reactLogo} alt='React' size={imgSize} className='technology-logo'/>
+              <Anchor href='https://facebook.github.io/react/' target='_blank'>
+                <Image src={reactLogo} alt='React' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
             <Tile pad='small'>
-              <Image src={grommetLogo} alt='Grommet' size={imgSize} className='technology-logo'/>
+              <Anchor href='https://grommet.github.io/' target='_blank'>
+                <Image src={grommetLogo} alt='Grommet' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
             <Tile pad='small'>
-              <Image src={lbLogo} alt='Loopback' size={imgSize} className='technology-logo'/>
+              <Anchor href='https://loopback.io/' target='_blank'>
+                <Image src={lbLogo} alt='Loopback' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
             <Tile pad='small'>
-              <Image src={mongodbLogo} alt='MongoDB' size={imgSize} className='technology-logo'/>
+              <Anchor href='https://www.mongodb.com/' target='_blank'>
+                <Image src={mongodbLogo} alt='MongoDB' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
             <Tile pad='small'>
-              <Image src={reduxLogo} alt='Redux' size={imgSize} className='technology-logo'/>
+              <Anchor href='http://redux.js.org/' target='_blank'>
+                <Image src={reduxLogo} alt='Redux' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
             <Tile pad='small'>
-              <Image src={nodejsLogo} alt='NodeJS' size={imgSize} className='technology-logo'/>
+              <Anchor href='https://nodejs.org/en/' target='_blank'>
+                <Image src={nodejsLogo} alt='NodeJS' size={imgSize} className='technology-logo'/>
+              </Anchor>
             </Tile>
           </Tiles>
         </Box>
