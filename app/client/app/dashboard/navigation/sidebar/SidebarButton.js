@@ -4,7 +4,7 @@ import Box from 'grommet/components/Box';
 import SidebarIcon from 'grommet/components/icons/base/Menu';
 import Button from 'grommet/components/Button';
 import { openSidebar } from './sidebarActions';
-import bindFunctions from '../../utils/bindFunctions';
+import bindFunctions from '../../../utils/bindFunctions';
 
 class Sidebar extends React.Component {
   constructor(props, content) {

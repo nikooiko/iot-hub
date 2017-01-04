@@ -6,7 +6,7 @@ import App from './App.js';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import Auth from '../auth/Auth';
-import AppContainer from '../layout/AppContainer';
+import AppContainer from '../dashboard/layout/AppContainer';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import Home from '../home/Home';

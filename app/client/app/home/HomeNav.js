@@ -8,7 +8,7 @@ import LoginIcon from 'grommet/components/icons/base/Login';
 import RegisterIcon from 'grommet/components/icons/base/UserAdd';
 import AuthIcon from 'grommet/components/icons/base/UserAdmin';
 import { loginRoute, registerRoute } from '../auth/authConfig';
-import NavLogo from '../navigation/NavLogo';
+import NavLogo from '../dashboard/navigation/NavLogo';
 
 // TODO report bug with Auth Menu
 

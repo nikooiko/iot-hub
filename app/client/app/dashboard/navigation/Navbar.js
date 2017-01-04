@@ -1,6 +1,6 @@
 import React from 'react';
 import SidebarButton from './sidebar/SidebarButton';
-import SessionMenu from '../auth/SessionMenu';
+import SessionMenu from '../../auth/SessionMenu';
 import Header from 'grommet/components/Header';
 import Box from 'grommet/components/Box';
 import Title from 'grommet/components/Title';

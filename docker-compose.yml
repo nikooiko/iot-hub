@@ -6,7 +6,7 @@ services:
       NODE_ENV: 'development'
       MONGOURL: 'mongodb://mongo/iot-hub'
     ports:
-      - "3000:80"
+      - "80:3000"
     depends_on:
       - mongo
   mongo:

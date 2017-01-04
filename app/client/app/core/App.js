@@ -2,7 +2,7 @@ import React from 'react';
 import { testIfAuthenticated } from '../auth/authActions';
 import GrommetApp from 'grommet/components/App';
 
-import LoadingPage from '../pages/LoadingPage';
+import Loading from '../common/Loading';
 
 // TODO change testIf... flow
 class App extends React.Component {
@@ -25,7 +25,7 @@ class App extends React.Component {
   render() {
     let content;
     if (!this.state.isReady) {
-       content = <LoadingPage />;
+       content = <Loading />;
     } else {
       content = this.props.children;
     }

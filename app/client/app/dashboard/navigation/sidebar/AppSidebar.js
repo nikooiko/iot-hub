@@ -11,7 +11,7 @@ import DashboardIcon from 'grommet/components/icons/base/Dashboard';
 import DeviceIcon from 'grommet/components/icons/base/Robot';
 import NavLogo from '../NavLogo';
 import { closeSidebar } from './sidebarActions';
-import bindFunctions from '../../utils/bindFunctions';
+import bindFunctions from '../../../utils/bindFunctions';
 
 class AppSidebar extends React.Component {
   constructor(props, content) {
