@@ -73,12 +73,14 @@ class About extends React.Component {
           </Tiles>
         </Box>
         <Footer
-          primary={true} colorIndex='neutral-1' pad={{horizontal:'medium', vertical:'small'}} justify='between'
+          primary={true} colorIndex='neutral-1' pad={{horizontal:'medium', vertical:'small'}}
         >
           <Logo color='white'/>
-          <Paragraph margin='none'>
-            © 2016
-          </Paragraph>
+          <Box flex={true} direction='row' justify='center'>
+            <Paragraph margin='none' align='center'>
+              © 2016
+            </Paragraph>
+          </Box>
           <Button
             label='TOP' plain={true} icon={<TopIcon/>}
             onClick={() => this.props._onSectionSelect('intro')}

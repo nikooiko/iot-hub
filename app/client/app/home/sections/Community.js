@@ -85,7 +85,9 @@ class Community extends React.Component {
         <Headline strong={true} size={headlineSize}>
           Community
         </Headline>
-        <WorldMap series={series} />
+        <Box size='large'>
+          <WorldMap series={series} />
+        </Box>
         <Legend series={legendSeries} onClick={false} total={true} announce={true} />
       </Box>
     )
