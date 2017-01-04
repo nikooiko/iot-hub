@@ -15,7 +15,8 @@ module.exports = app => {
   const defaultAdmin = {
     username: 'admin',
     email: 'admin@iot-hub.com',
-    password: '1234'
+    password: '1234',
+    continent: 'Europe'
   };
   Role.findOrCreate({ name: 'admin' })
     .then(([role]) => {
