@@ -1,8 +1,5 @@
 'use strict';
 
-if (process.env.NODE_ENV === 'production') {
-  require('newrelic'); // eslint-disable-line global-require
-}
 // Setup global logger for app
 global.logger = require('./lib/logger.js')();
 global.Promise = require('bluebird');
