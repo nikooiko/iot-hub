@@ -30,13 +30,10 @@
   ],
   "properties": {
     "challenges": false,
-    "created": false,
+    "created": true,
     "credentials": false,
-    "email": {
-      "type": "string",
-      "required": true
-    },
-    "lastUpdated": false,
+    "email": false,
+    "lastUpdated": true,
     "username": {
       "type": "string",
       "required": true

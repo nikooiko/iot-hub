@@ -2,7 +2,7 @@ import api from '../utils/api';
 import { routeActions } from 'redux-simple-router'
 
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './authTypes';
-import { routeAfterAuth, routeAfterUnauth } from './authConfig';
+import { routeAfterAuth, routeAfterUnauth, loginRoute } from './authConfig';
 
 const errorHandler = (dispatch, error, type) => {
   let errorMessage = error.message;
@@ -41,12 +41,8 @@ export const login = (credentials) => {
 export const register = (form) => {
   return (dispatch) => {
     api.post('/AppUsers', form)
-      .then(response => {
-        const user = {
-          username: form.username
-        };
-        dispatch({ type: AUTH_USER, jwt: response.data.user.jwt, user });
-        dispatch(routeActions.push(routeAfterAuth));
+      .then(() => {
+        dispatch(routeActions.push(loginRoute));
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR)
