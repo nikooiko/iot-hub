@@ -1,23 +1,23 @@
-# This is the client Application
+# This is the IOTHub's front-end application
 ## Basic Technologies
 * React
 * Redux
-* Material
+* Grommet
 
 ## Structure - Breakdown
-The ***Generic*** folder contains as the name implies the application basic
+The ***core*** folder contains as the name implies the application core
 functionality:
 * The **app** component
+* The **root** component
 * The **routes**
-* The **actions** that indexes all application's actions
 * The **reducers** that indexes all application's reducers
-* The **types** that indexes all application's types
 * The **store** that contains the store configuration
+* And more...
 
-The ***Shared*** folder contains various shared components (ex footer, notFoundPage, etc...)
+The ***common*** folder contains various shared components (ex Logo, Loading, etc...)
+The ***utils*** folder contains various utilities (ex. api handler, function binder etc...)
 
 All the other folders contain the various application features.
 
-Each ***feature*** might contain a basic component-container (see [**redux**](http://redux.js.org/)),
-*reducers*, *actions*, *types* and *sub-features* (following the same structure as parent).
+Each ***feature*** might contain a basic component-container (see [**redux**](http://redux.js.org/)), a **store** folder that contains redux *reducers*, *actions*, *types*, a layout folder that contains container, header and footer (usually only if it's a top level feature) and *sub-features* (following the same structure as parent).
 

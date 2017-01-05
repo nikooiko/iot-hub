@@ -1,24 +1,24 @@
 {
-  "name": "iot-platform",
+  "name": "iot-hub",
   "version": "1.0.0",
-  "description": "## Description  Presentation: [presentation](https://docs.google.com/presentation/d/1Xi2VNbumGQ3iPnQSmlPcEmbbN7ib7VYmEkX46dJeXdA/edit#slide=id.g19cd573a60_0_1204)",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nikooiko/WWW-IOT-Platform.git"
+    "url": "git+https://github.com/nikooiko/iot-hub"
   },
   "keywords": [
-    "iot-platform"
+    "iot-hub"
   ],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nikooiko/WWW-IOT-Platform/issues"
+    "url": "https://github.com/nikooiko/iot-hub/issues"
   },
-  "homepage": "https://github.com/nikooiko/WWW-IOT-Platform#readme",
+  "homepage": "https://github.com/nikooiko/iot-hub#readme",
   "devDependencies": {
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^8.0.0",
