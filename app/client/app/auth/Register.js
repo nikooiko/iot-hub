@@ -4,7 +4,7 @@ import Form from 'grommet/components/Form';
 import FormFields from 'grommet/components/FormFields';
 import Button from 'grommet/components/Button';
 import Box from 'grommet/components/Box';
-import { register } from './authActions';
+import { register } from './store/authActions';
 import bindFunctions from '../utils/bindFunctions';
 import MyForm from '../common/Form';
 

@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import { routeReducer as routing } from 'redux-simple-router'
 import { createResponsiveStateReducer } from 'redux-responsive';
-import auth from '../auth/authReducers';
+import auth from '../auth/store/authReducers';
 import sidebar from '../dashboard/navigation/sidebar/sidebarReducers';
 import home from '../home/store/homeReducers';
+import app from './store/appReducers';
 
 const customBreakPoints = {
   palm: 719,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   form,
   routing,
   sidebar,
-  home
+  home,
+  app
 });
 
 export default rootReducer;

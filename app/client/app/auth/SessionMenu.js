@@ -1,5 +1,6 @@
 import React from 'react';
 import UserIcon from 'grommet/components/icons/base/User';
+import AdminIcon from 'grommet/components/icons/base/UserAdmin';
 import LoginIcon from 'grommet/components/icons/base/Login';
 import RegisterIcon from 'grommet/components/icons/base/UserAdd';
 import LogoutIcon from 'grommet/components/icons/base/Logout';
@@ -7,15 +8,19 @@ import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';
 import { connect } from 'react-redux';
 import { loginRoute, registerRoute } from './authConfig';
-import { logout } from './authActions';
+import { logout } from './store/authActions';
 
 class UserMenu extends React.Component {
   render() {
     const auth = this.props.auth;
     if (auth.authenticated) {
+      let userIcon = <UserIcon/>;
+      if (auth.user.isAdmin) {
+        userIcon = <AdminIcon/>;
+      }
       return (
         <Menu
-          icon={<UserIcon/>}
+          icon={userIcon}
           dropAlign={{ right: 'right' }}
           colorIndex='neutral-1-a'
         >

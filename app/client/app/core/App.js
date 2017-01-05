@@ -1,31 +1,31 @@
 import React from 'react';
-import { testIfAuthenticated } from '../auth/authActions';
+import { connect } from 'react-redux';
 import GrommetApp from 'grommet/components/App';
+import Box from 'grommet/components/Box';
 
+import { testToken } from '../auth/store/authActions';
+import { setApplicationIsReady } from './store/appActions';
 import Loading from '../common/Loading';
 
-// TODO change testIf... flow
 class App extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      isReady: false
-    };
-  }
-
   componentDidMount() {
-    const { store } = this.context;
-    store.dispatch(testIfAuthenticated())
-      .then(() => {
-        this.setState({ isReady: true });
-      });
+    if (this.props.authenticated) {
+      this.props.setApplicationIsReady(false);
+      this.props.testToken()
+        .then(() => {
+          this.props.setApplicationIsReady(true);
+        });
+    }
   }
 
   render() {
     let content;
-    if (!this.state.isReady) {
-       content = <Loading />;
+    if (!this.props.app.isReady) {
+       content = (
+         <Box full={true}>
+           <Loading />
+         </Box>
+       );
     } else {
       content = this.props.children;
     }
@@ -37,8 +37,9 @@ class App extends React.Component {
   }
 }
 
-App.contextTypes = {
-  store: React.PropTypes.object
-};
+const mapStateToProps = (state) => ({
+  authenticated: state.auth.authenticated,
+  app: state.app
+});
 
-export default App;
+export default connect(mapStateToProps, { setApplicationIsReady, testToken })(App);

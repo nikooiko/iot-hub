@@ -6,7 +6,7 @@ import Header from 'grommet/components/Header';
 import Anchor from 'grommet/components/Anchor';
 import LoginIcon from 'grommet/components/icons/base/Login';
 import RegisterIcon from 'grommet/components/icons/base/UserAdd';
-import AuthIcon from 'grommet/components/icons/base/UserAdmin';
+import AuthIcon from 'grommet/components/icons/base/User';
 import { loginRoute, registerRoute } from '../auth/authConfig';
 import NavLogo from '../dashboard/navigation/NavLogo';
 
