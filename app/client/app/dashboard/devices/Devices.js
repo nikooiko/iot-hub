@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
-import AppHeader from '../layout/AppHeader';
+import Navbar from '../navigation/Navbar';
 
 export class Devices extends React.Component {
   constructor(props) {
@@ -11,8 +11,7 @@ export class Devices extends React.Component {
   render() {
     return (
       <Box>
-        <AppHeader page='Devices'/>
-        <hr/>
+        <Navbar page='Devices'/>
         Devices:
       </Box>
     );

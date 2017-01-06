@@ -4,16 +4,16 @@ import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Button from 'grommet/components/Button';
 import Menu from 'grommet/components/Menu';
-import Sidebar from 'grommet/components/Sidebar';
+import GrommetSidebar from 'grommet/components/Sidebar';
 import CloseIcon from 'grommet/components/icons/base/Close'
 import Anchor from 'grommet/components/Anchor';
 import DashboardIcon from 'grommet/components/icons/base/Dashboard';
 import DeviceIcon from 'grommet/components/icons/base/Robot';
 import NavLogo from '../NavLogo';
-import { closeSidebar } from './sidebarActions';
+import { closeSidebar } from './store/sidebarActions';
 import bindFunctions from '../../../utils/bindFunctions';
 
-class AppSidebar extends React.Component {
+class Sidebar extends React.Component {
   constructor(props, content) {
     super(props, content);
     bindFunctions(this, ['_onClose']);
@@ -29,7 +29,7 @@ class AppSidebar extends React.Component {
     }
 
     return (
-      <Sidebar colorIndex='neutral-1' fixed={true} size={'medium'}>
+      <GrommetSidebar colorIndex='neutral-1' fixed={true} size={'medium'}>
         <Header
           size='medium' pad={{ horizontal: 'medium', between: 'medium' }} onClick={this._onClose}
         >
@@ -45,23 +45,22 @@ class AppSidebar extends React.Component {
         </Header>
         <Menu fill={true} primary={true}>
           <Anchor
-            primary={false}
-            path={'/dashboard'} label={'Dashboard'} animateIcon={true}
+            path={'/dashboard'} label={'Dashboard'}
             icon={<DashboardIcon />}
           />
           <Anchor
-            primary={false}
-            path={'/devices'} label={'Devices'} animateIcon={true}
+            path={'/devices'} label={'Devices'}
             icon={<DeviceIcon />}
           />
         </Menu>
-      </Sidebar>
+      </GrommetSidebar>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  opened: state.sidebar.opened
+  opened: state.sidebar.opened,
+  location: state.routing.location
 });
 
-export default connect(mapStateToProps, { closeSidebar })(AppSidebar);
+export default connect(mapStateToProps, { closeSidebar })(Sidebar);

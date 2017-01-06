@@ -24,6 +24,7 @@ class Navbar extends React.Component {
         <SidebarButton/>
         {title}
         <Box justify='end' direction='row' responsive={false} flex={true}>
+          {this.props.additionalButtons}
           <SessionMenu/>
         </Box>
       </Header>

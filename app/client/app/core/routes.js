@@ -6,7 +6,7 @@ import App from './App.js';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import Auth from '../auth/Auth';
-import AppContainer from '../dashboard/layout/AppContainer';
+import DashboardLayout from '../dashboard/DashboardLayout';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import Home from '../home/Home';
@@ -24,7 +24,7 @@ export default (store) => {
     <Route path='/' component={App} onChange={routeChangeHandler}>
       <IndexRoute components={RequireUnauth(Home)}/>
       <Route path='#:section' components={RequireUnauth(Home)}/>
-      <Route path='' component={RequireAuth(AppContainer)}>
+      <Route path='' component={RequireAuth(DashboardLayout)}>
         <Route path='dashboard' component={Dashboard} />
         <Route path='devices' component={Devices} />
       </Route>

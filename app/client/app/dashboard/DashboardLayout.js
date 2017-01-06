@@ -2,16 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Split from 'grommet/components/Split';
 import Article from 'grommet/components/Article';
-import AppSidebar from '../navigation/sidebar/AppSidebar';
+import Sidebar from './navigation/sidebar/Sidebar';
 
-
-class AppContainer extends React.Component {
+class DashboardLayout extends React.Component {
   render() {
     const priority = this.props.sidebarOpened ? 'left' : 'right';
 
     return (
       <Split fixed={true} flex={'right'} priority={priority}>
-        <AppSidebar/>
+        <Sidebar/>
         <Article colorIndex='light-1'>
           { this.props.children }
         </Article>
@@ -24,4 +23,4 @@ const mapStateToProps = (state) => ({
   sidebarOpened: state.sidebar.opened
 });
 
-export default connect(mapStateToProps)(AppContainer);
+export default connect(mapStateToProps)(DashboardLayout);

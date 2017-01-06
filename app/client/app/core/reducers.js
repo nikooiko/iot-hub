@@ -3,7 +3,7 @@ import { reducer as form } from 'redux-form';
 import { routeReducer as routing } from 'redux-simple-router'
 import { createResponsiveStateReducer } from 'redux-responsive';
 import auth from '../auth/store/authReducers';
-import sidebar from '../dashboard/navigation/sidebar/sidebarReducers';
+import sidebar from '../dashboard/navigation/sidebar/store/sidebarReducers';
 import home from '../home/store/homeReducers';
 import app from './store/appReducers';
 
