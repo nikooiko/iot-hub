@@ -16,6 +16,27 @@ function httpError(message, status = 500, code = null) {
   return err;
 }
 
+/**
+ * Find the collection name of the passed model
+ *
+ * @method getModelCollection
+ * @param {Model} model The model that we want to get the collection from
+ * @return {Collection} The mongodb Collection
+ */
+function getModelCollection(model) {
+  const modelDataSource = model.dataSource;
+  model.dataSource.once('connected', () => { // get the db collection to use for ops
+    try {
+      model.dbCollection = modelDataSource.connector.collection((model.modelName));
+      return model.dbCollection; // return the name
+    } catch (err) {
+      err.description = `Error while trying to get db collection for ${model.modelName}`;
+      throw err;
+    }
+  });
+}
+
 module.exports = {
-  httpError
+  httpError,
+  getModelCollection
 };

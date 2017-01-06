@@ -2,11 +2,17 @@
 
 const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
+const getModelCollection = require('../../server/lib/customUtils').getModelCollection;
 
 const secret = 'secret';
 
 module.exports = (AppUser) => {
-// TODO Delete these routes
+  AppUser.dbCollection = null; // Placeholder for getting direct access to the db collection
+  AppUser.once('dataSourceAttached', (attachedModel) => {
+    getModelCollection(attachedModel);
+    attachedModel.ObjectId = attachedModel.dataSource.ObjectID; // get ObjectId constructor
+  });
+
   AppUser.afterRemote('login', (ctx, result) => {
     // TODO recreate
     const token = jwt.sign({ userId: result.userId }, secret);
@@ -64,16 +70,28 @@ module.exports = (AppUser) => {
   });
 
   AppUser.populationPerContinent = (cb) => {
-    //TODO; dummy for now
-    const populationPerContinent = {
-      NorthAmerica: 25,
-      SouthAmerica: 0,
-      Europe: 100,
-      Africa: 0,
-      Australia: 0,
-      Asia: 10
-    };
-    cb(null, populationPerContinent);
+    AppUser.dbCollection.aggregate({
+      $group: { _id: '$continent', population: { $sum: 1 } }
+    }, (err, res) => {
+      if (err) {
+        return cb(err);
+      }
+      const populationPerContinent = {
+        NorthAmerica: 0,
+        SouthAmerica: 0,
+        Europe: 0,
+        Africa: 0,
+        Australia: 0,
+        Asia: 0
+      };
+      let i = -1;
+      const len = res.length - 1;
+      while (i++ < len) {
+        const continent = res[i];
+        populationPerContinent[continent._id] = continent.population;
+      }
+      return cb(null, populationPerContinent);
+    });
   };
 
   // Static methods

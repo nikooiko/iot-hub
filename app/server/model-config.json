@@ -33,10 +33,6 @@
     "dataSource": "mongoDs",
     "public": false
   },
-  "Owner": {
-    "dataSource": "mongoDs",
-    "public": false
-  },
   "AppUser": {
     "dataSource": "mongoDs",
     "public": true
