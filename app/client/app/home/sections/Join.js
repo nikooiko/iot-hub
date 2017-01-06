@@ -22,8 +22,8 @@ class Join extends React.Component {
     // Calculate Responsive values
     const mediaType = this.props.mediaType;
     if (mediaType === 'palm') {
-      stepSize = 'medium';
-      let stepPad = 'small';
+      stepSize = 'small';
+      stepPad = 'small';
       containerPad = 'small';
       headlineSize = 'small';
     } else if (mediaType === 'lapAndUp') {

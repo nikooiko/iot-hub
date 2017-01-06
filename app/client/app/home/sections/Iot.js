@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
 import Heading from 'grommet/components/Heading';
 import Paragraph from 'grommet/components/Paragraph';
@@ -8,6 +9,9 @@ import AnalyzeIcon from 'grommet/components/icons/base/LineChart';
 
 class Iot extends React.Component {
   render() {
+    const paragraphClasses = '';
+    const headingSize='h3';
+
     return (
       <Box flex={true} responsive={false}>
         <Box
@@ -18,9 +22,9 @@ class Iot extends React.Component {
             <MeasureIcon colorIndex='grey-1' size='xlarge'/>
           </Box>
           <Box align='center' justify='center'>
-            <Heading strong={true} tag='h3' truncate={true} margin='none'>Measure</Heading>
-            <Paragraph>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <Heading strong={true} tag={headingSize} margin='none'>Measure</Heading>
+            <Paragraph className={paragraphClasses} margin='none'>
+              Measure and monitor your environment
             </Paragraph>
           </Box>
         </Box>
@@ -29,9 +33,9 @@ class Iot extends React.Component {
           responsive={false}
         >
           <Box align='center' justify='center'>
-            <Heading strong={true} tag='h3' truncate={true} margin='none'>Collect</Heading>
-            <Paragraph >
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <Heading strong={true} tag={headingSize} margin='none'>Collect</Heading>
+            <Paragraph className={paragraphClasses} margin='none'>
+              Collect and store data for later use
             </Paragraph>
           </Box>
           <Box justify='center'>
@@ -46,9 +50,9 @@ class Iot extends React.Component {
             <AnalyzeIcon colorIndex='grey-1' size='xlarge'/>
           </Box>
           <Box align='center' justify='center'>
-            <Heading strong={true} tag='h3' truncate={true} margin='none'>Analyze</Heading>
-            <Paragraph>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <Heading strong={true} tag={headingSize} margin='none'>Analyze</Heading>
+            <Paragraph className={paragraphClasses} margin='none'>
+              Process and provide useful analytics
             </Paragraph>
           </Box>
         </Box>
@@ -56,4 +60,9 @@ class Iot extends React.Component {
     )
   }
 }
-export default Iot;
+
+const mapStateToProps = (state) => ({
+  browser: state.browser
+});
+
+export default connect(mapStateToProps)(Iot);

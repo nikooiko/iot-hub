@@ -28,7 +28,15 @@
   z-index: -1;
 }
 
+.hide {
+  display: none !important;
+}
+
 .hide-portable {
+  // nothing
+}
+
+.hide-palm {
   // nothing
 }
 
@@ -42,6 +50,13 @@
     max-width: 150px !important;
   }
   .hide-portable {
+    display: none !important;
+  }
+}
+
+// for Mobile phone screens
+@media screen and (max-width: $break-palm-max-width) {
+  .hide-palm {
     display: none !important;
   }
 }
