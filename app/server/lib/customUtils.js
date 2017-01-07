@@ -1,5 +1,8 @@
 'use strict';
 
+const loopback = require('loopback');
+const tokenHandler = require('./tokenHandler');
+
 /**
  * @method httpError
  * @param {String} message The message creating the error body

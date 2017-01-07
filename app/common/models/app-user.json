@@ -12,14 +12,6 @@
       "options": {
         "unique": true
       }
-    },
-    "email_index": {
-      "keys": {
-        "email": 1
-      },
-      "options": {
-        "unique": true
-      }
     }
   },
   "options": {
@@ -53,20 +45,6 @@
       "permission": "ALLOW"
     },
     {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY",
-      "property": "deleteById"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "DENY",
-      "property": "__create__sensors"
-    },
-    {
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "admin",
@@ -75,21 +53,7 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "refreshToken"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "sharedProcessUser",
-      "permission": "ALLOW",
-      "property": "__get__configuration__sensorRanges"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "testToken"
     },

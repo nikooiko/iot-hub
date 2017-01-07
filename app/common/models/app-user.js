@@ -1,10 +1,8 @@
 'use strict';
 
 const Promise = require('bluebird');
-const jwt = require('jsonwebtoken');
 const getModelCollection = require('../../server/lib/customUtils').getModelCollection;
-
-const secret = 'secret';
+const tokenHandler = require('../../server/lib/tokenHandler');
 
 module.exports = (AppUser) => {
   AppUser.dbCollection = null; // Placeholder for getting direct access to the db collection
@@ -13,19 +11,20 @@ module.exports = (AppUser) => {
     attachedModel.ObjectId = attachedModel.dataSource.ObjectID; // get ObjectId constructor
   });
 
-  AppUser.afterRemote('login', (ctx, result) => {
-    // TODO recreate
-    const token = jwt.sign({ userId: result.userId }, secret);
-    return AppUser.getUserRoles(result.userId)
-      .then((roles) => {
-        result.roles = roles;
-        if (!result.__data.user) {
-          result.__data.user = { jwt: token };
-        } else {
-          result.__data.user.jwt = token;
-        }
-      });
-  });
+  AppUser.afterRemote('login', (ctx, result) =>
+    tokenHandler.createToken({ userId: result.userId })
+      .then((token) =>
+        AppUser.getUserRoles(result.userId)
+          .then((roles) => {
+            result.roles = roles;
+            if (!result.__data.user) {
+              result.__data.user = { jwt: token };
+            } else {
+              result.__data.user.jwt = token;
+            }
+          })
+      )
+  );
 
   AppUser.remoteMethod('testToken', {
     description: 'The functionality used to test a user\'s token',
@@ -44,14 +43,10 @@ module.exports = (AppUser) => {
     returns: []
   });
 
-  AppUser.testToken = (token, cb) => {
-    jwt.verify(token, secret, (err) => {
-      if (err) {
-        return cb(new Error('Token is invalid'));
-      }
-      return cb(null);
-    });
-  };
+  AppUser.testToken = (token, cb) =>
+    tokenHandler.verifyToken(token)
+      .then(() => cb(null))
+      .catch(cb);
 
   AppUser.remoteMethod('populationPerContinent', {
     description: 'The functionality get number of users per continent',

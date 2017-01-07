@@ -35,9 +35,10 @@ function createToken(payload, expiresIn = defaultTokenDuration) {
   if (!payload) {
     return Promise.reject(new Error('Cannot sign empty payload'));
   }
-  const verifyOptions = getTokenOptions();
-  verifyOptions.expiresIn = expiresIn;
-
+  const tokenOptions = {
+    expiresIn,
+    issuer
+  };
   return new Promise((resolve, reject) => {
     jwt.sign(payload, secretKey, tokenOptions, (err, token) => {
       if (err) {
