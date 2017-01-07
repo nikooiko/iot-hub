@@ -9,11 +9,14 @@ export const login = (credentials) => {
     return api.post('/AppUsers/login' , credentials)
       .then(response => {
         const rememberMe = credentials.rememberMe;
+        const accessToken = response.data.id;
         const user = {
           username: credentials.username,
           isAdmin: (response.data.roles.indexOf('admin') != -1),
-          token: response.data.user.jwt
+          token: response.data.user.jwt,
+          accessToken
         };
+        api.setAuthenticationHeader(accessToken);
         dispatch({ type: AUTH_USER, rememberMe, user });
         dispatch(routeActions.push(routeAfterAuth));
       });
@@ -41,6 +44,7 @@ export const testToken = () => {
   return (dispatch, getState) => {
     const auth = getState().auth;
     if (auth.authenticated) {
+      api.setAuthenticationHeader(auth.user.accessToken);
       const token = auth.user.token;
       return api.post('/AppUsers/testToken', { token })
         .catch(() => {
