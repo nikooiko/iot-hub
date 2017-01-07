@@ -10,11 +10,12 @@ import Loading from '../common/Loading';
 class App extends React.Component {
   componentDidMount() {
     if (this.props.authenticated) {
-      this.props.setApplicationIsReady(false);
       this.props.testToken()
         .then(() => {
           this.props.setApplicationIsReady(true);
         });
+    } else {
+      this.props.setApplicationIsReady(true);
     }
   }
 

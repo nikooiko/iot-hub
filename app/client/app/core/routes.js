@@ -23,7 +23,7 @@ export default (store) => {
   return (
     <Route path='/' component={App} onChange={routeChangeHandler}>
       <IndexRoute components={RequireUnauth(Home)}/>
-      <Route path='#:section' components={RequireUnauth(Home)}/>
+      <Route components={RequireUnauth(Home)}/>
       <Route path='' component={RequireAuth(DashboardLayout)}>
         <Route path='dashboard' component={Dashboard} />
         <Route path='devices' component={Devices} />

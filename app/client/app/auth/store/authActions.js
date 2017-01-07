@@ -25,7 +25,7 @@ export const login = (credentials) => {
 
 export const register = (form) => {
   return (dispatch) => {
-    api.post('/AppUsers', form)
+    return api.post('/AppUsers', form)
       .then(() => {
         dispatch(routeActions.push(loginRoute));
       });

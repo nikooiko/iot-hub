@@ -24,7 +24,11 @@ const formValidator = {
   }
 };
 
-const continentOptions = ['Europe', 'Asia', 'Africa', 'North America', 'South America'];
+const continentOptions = [
+  'Europe', 'Asia', 'Africa',
+  { value: 'NorthAmerica', label: 'North America' },
+  { value: 'SouthAmerica', label: 'South America' }
+];
 
 class Register extends MyForm {
   constructor(props, content) {
@@ -47,7 +51,20 @@ class Register extends MyForm {
     if (Object.keys(form.errors).length !== 0) {
       this.setState(newState);
     } else {
-      this.props.register(form.fields);
+      let continent = form.fields.continent;
+      if (continent instanceof Object) {
+        continent = continent.value;
+      }
+      const finalForm = {
+        username: form.fields.username,
+        password: form.fields.password,
+        continent
+      };
+      this.props.register(finalForm)
+        .catch((err) => {
+          // TODO
+          console.log(err);
+        });
     }
   }
 

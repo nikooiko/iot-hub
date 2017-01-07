@@ -43,10 +43,11 @@ module.exports = (AppUser) => {
     returns: []
   });
 
-  AppUser.testToken = (token, cb) =>
+  AppUser.testToken = (token, cb) => {
     tokenHandler.verifyToken(token)
       .then(() => cb(null))
       .catch(cb);
+  };
 
   AppUser.remoteMethod('populationPerContinent', {
     description: 'The functionality get number of users per continent',

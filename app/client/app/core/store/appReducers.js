@@ -1,7 +1,7 @@
 import { SET_IS_READY } from './appTypes';
 
 const INITIAL_STATE = {
-  isReady: true
+  isReady: false
 };
 
 export default (state = INITIAL_STATE, action) => {
