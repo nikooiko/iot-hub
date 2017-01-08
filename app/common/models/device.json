@@ -66,6 +66,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "login"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "getMyDevices"
     }
   ],
   "methods": {}
