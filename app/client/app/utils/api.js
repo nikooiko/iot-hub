@@ -17,6 +17,10 @@ const post = (url, data) => {
   return instance.post(`${API_URL}${url}`, data);
 };
 
+const patch = (url, data) => {
+  return instance.patch(`${API_URL}${url}`, data);
+};
+
 const get = (url) => {
   return instance.get(`${API_URL}${url}`);
 };
@@ -24,5 +28,6 @@ const get = (url) => {
 export default {
   setAuthenticationHeader,
   post,
+  patch,
   get
 }

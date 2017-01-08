@@ -5,3 +5,7 @@
 .device-tile:hover {
   background-color: nth($brand-grey-colors, 5)
 }
+
+.device-data-tile {
+  border: 1px solid nth($brand-grey-colors, 5)
+}

@@ -38,18 +38,22 @@ export const fetchDevices = () => {
 
 export const activate = (deviceId) => {
   return (dispatch) => {
-    return api.post(`/Devices/${deviceId}/activate`)
+    // TODO Warning: fix race conditions ?
+    return api.patch(`/Devices/${deviceId}`, { activated: true })
       .then((response) => {
-        console.log('Device is activated');
+        const device = response.data;
+        dispatch(setDevice(device));
       })
   };
 };
 
 export const deactivate = (deviceId) => {
   return (dispatch) => {
-    return api.post(`/Devices/${deviceId}/deactivate`)
+    // TODO Warning: fix race conditions ?
+    return api.patch(`/Devices/${deviceId}`, { activated: false })
       .then((response) => {
-        console.log('Device is deactivated');
+        const device = response.data;
+        dispatch(setDevice(device));
       })
   };
 };

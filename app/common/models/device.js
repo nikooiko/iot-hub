@@ -81,7 +81,11 @@ module.exports = (Device) => {
             cb(err);
             return;
           }
-          Device.create({ id: deviceId, userId: ownerId, activated: false })
+          const state = {
+            status: 'offline',
+            data: []
+          };
+          Device.create({ id: deviceId, userId: ownerId, activated: false, state })
             .then(() => {
               const err = utils.httpError(
                 'Device is not activated for communication',
@@ -157,7 +161,7 @@ module.exports = (Device) => {
       .catch(cb);
   };
 
-  Device.beforeRemote('**', (ctx, user, next) => {
+  Device.beforeRemote('getMyDevices', (ctx, user, next) => {
     // Check for normal user access
     const accessToken = ctx.req.accessToken;
     const methodStringName = ctx.method.stringName;

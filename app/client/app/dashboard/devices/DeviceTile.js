@@ -9,7 +9,9 @@ import { closeSidebar } from '../navigation/sidebar/store/sidebarActions';
 export class DeviceTile extends React.Component {
   _onClick(deviceId) {
     return () => {
-      this.props.closeSidebar();
+      if (this.props.sidebarOpened) {
+        this.props.closeSidebar();
+      }
       this.props.push(`/devices/${deviceId}`);
     };
   }
@@ -31,8 +33,8 @@ export class DeviceTile extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = (state) => ({
+  sidebarOpened: state.sidebar.opened,
 });
 
 export default connect(mapStateToProps, { closeSidebar, push: routerActions.push })(DeviceTile);
