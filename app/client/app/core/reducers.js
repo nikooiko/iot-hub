@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import { routeReducer as routing } from 'redux-simple-router'
+import { routerReducer as routing } from 'react-router-redux'
 import { createResponsiveStateReducer } from 'redux-responsive';
 import app from './store/appReducers';
 import sidebar from '../dashboard/navigation/sidebar/store/sidebarReducers';
@@ -28,7 +28,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === UNAUTH_USER) {
-    state = undefined;
+    state.devices = undefined;
     api.setAuthenticationHeader(null);
   }
   return appReducer(state, action);

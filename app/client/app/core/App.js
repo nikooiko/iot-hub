@@ -8,7 +8,7 @@ import { setApplicationIsReady } from './store/appActions';
 import Loading from '../common/Loading';
 
 class App extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.authenticated) {
       this.props.testToken()
         .then(() => {

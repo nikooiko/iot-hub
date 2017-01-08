@@ -1,73 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
-import Table from 'grommet/components/Table';
-import TableHeader from 'grommet/components/TableHeader';
-import TableRow from 'grommet/components/TableRow';
+import Tiles from 'grommet/components/Tiles';
+import DeviceTile from './DeviceTile';
 import Navbar from '../navigation/Navbar';
 import { fetchDevices } from './store/devicesActions';
 import Loading from '../../common/Loading';
-import bindFunctions from '../../utils/bindFunctions';
 
 export class Devices extends React.Component {
   constructor(props, content) {
     super(props, content);
-    bindFunctions(this, ['_onSort']);
     this.state = {
-      sort: {
-        index: 0,
-        ascending: true
-      }
+      isReady: false
     }
   }
 
-  componentDidMount() {
-    this.props.fetchDevices();
-  }
-
-  _onSort(index, ascending) {
-    const newState = {
-      ...this.state,
-      sort: {
-        index,
-        ascending
-      }
-    };
-    this.setState(newState);
+  componentWillMount() {
+    this.props.fetchDevices()
+      .then(() => {
+        this.setState({
+          ...this.state,
+          isReady: true
+        });
+      });
   }
 
   renderDevice(device) {
     return (
-      <TableRow key={device.id}>
-        <td>Status</td>
-        <td>{device.id}</td>
-        <td>TODO</td>
-      </TableRow>
+      <DeviceTile
+        key={device.id}
+        device={device}
+      />
     );
   }
 
   render() {
     let content;
-    if (this.props.devices.isFetching) {
-      content = (
-        <Loading />
-      )
+    if (!this.state.isReady || this.props.devices.isFetching) {
+      content = <Loading />;
+    } else if (this.props.children) {
+      return this.props.children;
     } else {
       const devices = this.props.devices.devices;
-      const sort = this.state.sort;
       content = (
-        <Table a11yTitle='Devices List'>
-          <TableHeader
-            labels={['State', 'Device-ID', 'Actions']}
-            sortIndex={sort.index}
-            sortAscending={sort.ascending}
-            onSort={this._onSort}
-          />
-          <tbody>
-            {devices.map(this.renderDevice)}
-          </tbody>
-        </Table>
-      )
+        <Tiles flush={false} fill={false}>
+          {devices.map((device) => this.renderDevice(device))}
+        </Tiles>
+      );
     }
     return (
       <Box flex={true}>

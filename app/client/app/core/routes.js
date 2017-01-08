@@ -12,6 +12,7 @@ import RequireUnauth from '../auth/RequireUnauth';
 import Home from '../home/Home';
 import Dashboard from '../dashboard/Dashboard';
 import Devices from '../dashboard/devices/Devices';
+import Device from '../dashboard/devices/device/Device';
 
 export default (store) => {
   const routeChangeHandler = () => {
@@ -26,7 +27,9 @@ export default (store) => {
       <Route components={RequireUnauth(Home)}/>
       <Route path='' component={RequireAuth(DashboardLayout)}>
         <Route path='dashboard' component={Dashboard} />
-        <Route path='devices' component={Devices} />
+        <Route path='devices' component={Devices}>
+          <Route path=':deviceId' component={Device} />
+        </Route>
       </Route>
       <Route path='auth/' component={RequireUnauth(Auth)}>
         <IndexRedirect to='/'/>

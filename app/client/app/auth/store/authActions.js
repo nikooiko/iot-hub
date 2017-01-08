@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { routeActions } from 'redux-simple-router';
+import { routerActions } from 'react-router-redux';
 
 import { AUTH_USER, UNAUTH_USER } from './authTypes';
 import { routeAfterAuth, routeAfterUnauth, loginRoute } from '../authConfig';
@@ -18,7 +18,7 @@ export const login = (credentials) => {
         };
         api.setAuthenticationHeader(accessToken);
         dispatch({ type: AUTH_USER, rememberMe, user });
-        dispatch(routeActions.push(routeAfterAuth));
+        dispatch(routerActions.push(routeAfterAuth));
       });
   }
 };
@@ -27,7 +27,7 @@ export const register = (form) => {
   return (dispatch) => {
     return api.post('/AppUsers', form)
       .then(() => {
-        dispatch(routeActions.push(loginRoute));
+        dispatch(routerActions.push(loginRoute));
       });
   }
 };
@@ -35,7 +35,7 @@ export const register = (form) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch({ type: UNAUTH_USER });
-    dispatch(routeActions.push(routeAfterUnauth));
+    dispatch(routerActions.push(routeAfterUnauth));
     return Promise.resolve();
   }
 };

@@ -15,7 +15,6 @@ class Navbar extends React.Component {
         </Title>
       );
     }
-
     return (
       <Header
         size='medium' pad={{ horizontal: 'medium', between: 'medium' }}
@@ -24,7 +23,6 @@ class Navbar extends React.Component {
         <SidebarButton/>
         {title}
         <Box justify='end' direction='row' responsive={false} flex={true}>
-          {this.props.additionalButtons}
           <SessionMenu/>
         </Box>
       </Header>

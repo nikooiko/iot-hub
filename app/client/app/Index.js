@@ -1,10 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
+
 import Root from './core/Root';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-import configureStore from './core/configureStore';
 
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 import './base.scss';
@@ -13,10 +12,8 @@ import './base.scss';
 // TODO delete when unneeded
 injectTapEventPlugin();
 
-const store = configureStore();
-
 // Render the Root component
 render(
-  <Root store={store}/>
+  <Root/>
   , document.getElementById('root')
 );

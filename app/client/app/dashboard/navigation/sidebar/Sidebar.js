@@ -60,7 +60,7 @@ class Sidebar extends React.Component {
 
 const mapStateToProps = (state) => ({
   opened: state.sidebar.opened,
-  location: state.routing.location
+  routing: state.routing
 });
 
 export default connect(mapStateToProps, { closeSidebar })(Sidebar);

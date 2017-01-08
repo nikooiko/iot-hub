@@ -3,9 +3,9 @@ import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
-import { browserHistory } from 'react-router'
-import { syncHistory } from 'redux-simple-router'
-import { responsiveStoreEnhancer } from 'redux-responsive'
+import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
+import { responsiveStoreEnhancer } from 'redux-responsive';
 import reducers from './reducers';
 import { loadState as localStorageLoad, saveState as localStorageSave } from './localStorage';
 import { loadState as sessionStorageLoad, saveState as sessionStorageSave } from './sessionStorage';
@@ -20,7 +20,7 @@ const configureStore = () => {
     persistedState = {};
   }
 
-  const reduxRouter = syncHistory(browserHistory);
+  const reduxRouter = routerMiddleware(browserHistory);
   const middlewares = [
     reduxRouter,
     thunk,
