@@ -7,7 +7,7 @@
     "start": "node .",
     "posttest": "npm run lint && nsp check",
     "lbng": "lb-ng ./server/server.js ./dist/lb-services.js",
-    "build-front": "webpack --config ./webpack.config.prod.js",
+    "build-front": "webpack --config ./webpack.config.prod.js -p",
     "build-front-dev": "webpack --config ./webpack.config.dev.js -d",
     "build-front-dev-watched": "webpack --config ./webpack.config.dev.js -d --watch"
   },
