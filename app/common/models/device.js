@@ -152,7 +152,7 @@ module.exports = (Device) => {
           promise = Device.find({});
         } else {
           // Otherwise get user's devices
-          promise = Device.find({ userId });
+          promise = Device.find({ where: { userId } });
         }
         promise.then((devices) => {
           cb(null, devices);
