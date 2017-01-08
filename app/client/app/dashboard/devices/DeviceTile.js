@@ -2,15 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { routerActions } from 'react-router-redux';
 import Tile from 'grommet/components/Tile';
-import Status from 'grommet/components/icons/Status';
-import states from './deviceState';
+import DeviceStatus from './device/DeviceStatus';
+import getDeviceStatus from './lib/getDeviceStatus';
 import { closeSidebar } from '../navigation/sidebar/store/sidebarActions';
 
 export class DeviceTile extends React.Component {
-  constructor(props, content) {
-    super(props, content);
-  }
-
   _onClick(deviceId) {
     return () => {
       this.props.closeSidebar();
@@ -19,16 +15,9 @@ export class DeviceTile extends React.Component {
   }
 
   render() {
-    const device = this.props.device;
+    const { device } = this.props;
     const deviceLabel = device.id;
-    let state = states.unknown;
-    if (!device.activated) {
-      state = states.deactivated;
-    } else {
-      if (device.state) {
-        state = states[device.state.status];
-      }
-    }
+    const status=getDeviceStatus(device);
     return (
       <Tile
         align='center' direction='column' pad='small' a11yTitle={`View ${deviceLabel} Device`}
@@ -36,10 +25,7 @@ export class DeviceTile extends React.Component {
         className='device-tile'
       >
         <strong>{deviceLabel}</strong>
-        <div>
-          <Status value={state.icon} size="small" />
-          <span className="secondary">{state.name}</span>
-        </div>
+        <DeviceStatus status={status} renderForTile={true} />
       </Tile>
     );
   }

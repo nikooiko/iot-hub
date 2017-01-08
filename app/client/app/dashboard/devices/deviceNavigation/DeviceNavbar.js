@@ -7,6 +7,8 @@ import DeviceActions from '../device/DeviceActions';
 
 class DeviceNavbar extends React.Component {
   render() {
+    const { status, deviceId } = this.props;
+
     return (
       <Header
         size='medium' pad={{ horizontal: 'medium', between: 'medium' }}
@@ -14,7 +16,7 @@ class DeviceNavbar extends React.Component {
       >
         <BackButton/>
         <Box justify='end' direction='row' responsive={false} flex={true}>
-          <DeviceActions/>
+          <DeviceActions status={status} deviceId={deviceId} />
         </Box>
       </Header>
     )

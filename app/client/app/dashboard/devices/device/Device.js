@@ -4,6 +4,8 @@ import { routerActions } from 'react-router-redux';
 import Box from 'grommet/components/Box';
 import Tiles from 'grommet/components/Tiles';
 import DeviceTile from '../DeviceTile';
+import DeviceStatusBar from './DeviceStatus';
+import getDeviceStatus from '../lib/getDeviceStatus';
 import DeviceNavbar from '../deviceNavigation/DeviceNavbar';
 
 export class Device extends React.Component {
@@ -31,11 +33,13 @@ export class Device extends React.Component {
   }
 
   render() {
-    const device = this.state.device;
+    const { device } = this.state;
+    const status = getDeviceStatus(device);
     return (
       <Box flex={true}>
-        <DeviceNavbar/>
+        <DeviceNavbar status={status} deviceId={device.id}/>
         <Box>
+          <DeviceStatusBar status={status}/>
           {device ? device.id : 'Not Exist'}
         </Box>
       </Box>

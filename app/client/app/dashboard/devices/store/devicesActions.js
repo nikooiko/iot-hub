@@ -35,3 +35,21 @@ export const fetchDevices = () => {
       });
   };
 };
+
+export const activate = (deviceId) => {
+  return (dispatch) => {
+    return api.post(`/Devices/${deviceId}/activate`)
+      .then((response) => {
+        console.log('Device is activated');
+      })
+  };
+};
+
+export const deactivate = (deviceId) => {
+  return (dispatch) => {
+    return api.post(`/Devices/${deviceId}/deactivate`)
+      .then((response) => {
+        console.log('Device is deactivated');
+      })
+  };
+};
