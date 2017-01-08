@@ -43,18 +43,17 @@ const config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('app.css')
-  //   new webpack.DefinePlugin({
-  //     'process.env': {
-  //       NODE_ENV: JSON.stringify('production')
-  //     }
-  //   })
-  //   // TODO uncommenct for production
-  //   // new webpack.optimize.UglifyJsPlugin({
-  //   //   compress: {
-  //   //     warnings: true
-  //   //   }
-  //   // })
+    new ExtractTextPlugin('app.css'),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: true
+      }
+    })
   ]
 };
 

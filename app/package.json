@@ -7,8 +7,9 @@
     "start": "node .",
     "posttest": "npm run lint && nsp check",
     "lbng": "lb-ng ./server/server.js ./dist/lb-services.js",
-    "build-front": "webpack -p",
-    "build-front-dev": "webpack -d"
+    "build-front": "webpack --config ./webpack.config.prod.js",
+    "build-front-dev": "webpack --config ./webpack.config.dev.js -d",
+    "build-front-dev-watched": "webpack --config ./webpack.config.dev.js -d --watch"
   },
   "dependencies": {
     "axios": "^0.15.3",
