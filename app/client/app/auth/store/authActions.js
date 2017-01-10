@@ -11,6 +11,7 @@ export const login = (credentials) => {
         const rememberMe = credentials.rememberMe;
         const accessToken = response.data.id;
         const user = {
+          id: response.data.userId,
           username: credentials.username,
           isAdmin: (response.data.roles.indexOf('admin') != -1),
           token: response.data.user.jwt,

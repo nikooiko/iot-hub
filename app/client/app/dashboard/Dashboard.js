@@ -14,7 +14,7 @@ import { status } from './devices/lib/getDeviceStatus';
 
 export class Dashboard extends React.Component {
   render() {
-    const { mediaType } = this.props;
+    const { mediaType, user } = this.props;
     let valueSize = 'large';
     let iconSize = 'large';
     if (mediaType === 'palm') {
@@ -80,7 +80,8 @@ export class Dashboard extends React.Component {
           <Accordion openMulti={true} animate={false}>
             <AccordionPanel heading='User Information' pad='small'>
               <Box>
-                User Info
+                <strong>Owner ID:</strong>
+                <span>{ user.id }</span>
               </Box>
             </AccordionPanel>
             <AccordionPanel heading='Shortcuts and Actions' pad='small'>
@@ -96,7 +97,8 @@ export class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  mediaType: state.browser.mediaType
+  mediaType: state.browser.mediaType,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(Dashboard);
