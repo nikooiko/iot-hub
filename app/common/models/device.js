@@ -64,7 +64,7 @@ module.exports = (Device) => {
       return;
     }
 
-    Device.findOne({ id: deviceId, userId: ownerId }, {
+    Device.findOne({ where: { id: deviceId, userId: ownerId } }, {
       fields: { id: true, activated: true, userId: true }
     }).then(device => {
       if (!device) {

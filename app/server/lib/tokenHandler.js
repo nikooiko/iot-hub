@@ -128,7 +128,7 @@ function verifyReq(req) {
 
 // Create socket middleware
 const authOps = getTokenOptions();
-Object.assign(authOps, { secret: secretKey, handshake: true });
+Object.assign(authOps, { secret: secretKey, handshake: true, callback: false });
 const socketAuthMiddleware = socketioJwt.authorize(authOps);
 
 module.exports = {

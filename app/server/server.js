@@ -17,7 +17,7 @@ app.start = () => {
     logger.info('Web server listening at: %s', baseUrl);
     if (app.get('loopback-component-explorer')) {
       const explorerPath = app.get('loopback-component-explorer').mountPath;
-      logger.debug('Browse your REST API at %s%s', baseUrl, explorerPath);
+      logger.info('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
     process.on('uncaughtException', (err) => {
       // Operational error, log and exit...
