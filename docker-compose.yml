@@ -3,12 +3,13 @@ services:
   iot-hub:
     image: iot-hub-image
     environment:
-      NODE_ENV: 'development'
+      NODE_ENV: 'production'
       MONGOURL: 'mongodb://mongo/iot-hub'
     ports:
       - "80:3000"
     depends_on:
       - mongo
+    restart: unless-stopped
   mongo:
     image: mongo
     ports:
@@ -16,6 +17,7 @@ services:
     volumes:
       # The volume to hold database files.
       - mongo-data:/data/db
+    restart: unless-stopped
 volumes:
   mongo-data:
     driver: local
