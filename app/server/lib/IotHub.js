@@ -42,7 +42,35 @@ class IotHub {
       .use(this.validateToken('device'))
       .on('connection', socket => {
         logger.info(`Device with ID ${socket.decoded_token.deviceId} connected.`);
-        // TODO event handlers
+        this.app.models.Device.updateStatus(socket.decoded_token.deviceId, 'online')
+          .then(() => {
+            logger.info(`Updated status of device ${socket.decoded_token.deviceId} successfully`);
+          })
+          .catch((err) => {
+            logger.error({ err });
+          });
+        socket.on('data', (deviceData) => {
+          const deviceId = deviceData.deviceId;
+          const data = deviceData.data;
+          logger.info({ data }, `Received data from device ${deviceId}`);
+          this.app.models.Device.updateData(deviceId, data)
+            .then(() => {
+              logger.info(`Updated data of device ${deviceId} successfully`);
+            })
+            .catch((err) => {
+              logger.error({ err });
+            });
+        });
+        socket.on('disconnect', () => {
+          logger.info(`Device with ID ${socket.decoded_token.deviceId} disconnected.`);
+          this.app.models.Device.updateStatus(socket.decoded_token.deviceId, 'offline')
+            .then(() => {
+              logger.info(`Updated status of device ${socket.decoded_token.deviceId} successfully`);
+            })
+            .catch((err) => {
+              logger.error({ err });
+            });
+        });
       })
       .on('error', err => {
         logger.error({ err }, 'Error with device socket');

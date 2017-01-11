@@ -175,4 +175,38 @@ module.exports = (Device) => {
     ctx.args.loggedUser.userId = accessToken.userId;
     return next();
   });
+
+  Device.updateStatus = (deviceId, status) => Device.findById(deviceId)
+    .then((device) => {
+      if (!device) {
+        return Promise.reject(
+          new Error(`Device with ID ${deviceId} not found to update status`)
+        );
+      }
+      return device.updateAttributes({ state: { status, data: device.data } }, (err) => {
+        if (err) {
+          return Promise.reject(
+            new Error(`Failed to update status for device with ID ${deviceId}`)
+          );
+        }
+        return Promise.resolve();
+      });
+    });
+
+  Device.updateData = (deviceId, data) => Device.findById(deviceId)
+    .then((device) => {
+      if (!device) {
+        return Promise.reject(
+          new Error(`Device with ID ${deviceId} not found to data`)
+        );
+      }
+      return device.updateAttributes({ state: { status: device.status, data } }, (err) => {
+        if (err) {
+          return Promise.reject(
+            new Error(`Failed to update data for device with ID ${deviceId}`)
+          );
+        }
+        return Promise.resolve();
+      });
+    });
 };
