@@ -70,7 +70,7 @@ export class Device extends React.Component {
 
     // Render data if needed
     let dataTiles;
-    const data = device.state.data;
+    const data = device.lastData;
     if (data && status.name === 'online') {
       dataTiles = (
         <Tiles flush={false} fill={false}>

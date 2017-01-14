@@ -81,11 +81,7 @@ module.exports = (Device) => {
             cb(err);
             return;
           }
-          const state = {
-            status: 'offline',
-            data: []
-          };
-          Device.create({ id: deviceId, userId: ownerId, activated: false, state })
+          Device.create({ id: deviceId, userId: ownerId, activated: false, status: 'offline' })
             .then(() => {
               const err = utils.httpError(
                 'Device is not activated for communication',
@@ -183,7 +179,7 @@ module.exports = (Device) => {
           new Error(`Device with ID ${deviceId} not found to update status`)
         );
       }
-      return device.updateAttributes({ state: { status, data: device.data } }, (err) => {
+      return device.updateAttributes({ status }, (err) => {
         if (err) {
           return Promise.reject(
             new Error(`Failed to update status for device with ID ${deviceId}`)
@@ -200,7 +196,7 @@ module.exports = (Device) => {
           new Error(`Device with ID ${deviceId} not found to data`)
         );
       }
-      return device.updateAttributes({ state: { status: device.status, data } }, (err) => {
+      return device.updateAttributes({ lastData: data }, (err) => {
         if (err) {
           return Promise.reject(
             new Error(`Failed to update data for device with ID ${deviceId}`)
@@ -209,4 +205,10 @@ module.exports = (Device) => {
         return Promise.resolve();
       });
     });
+
+  // Validations
+  Device.validatesInclusionOf('status', {
+    in: ['online', 'offline'],
+    message: 'invalid status'
+  });
 };

@@ -8,8 +8,8 @@ export const status = {
 export default (device) => {
   if (!device.activated) {
     return status.deactivated;
-  } else if (device.state) {
-    return status[device.state.status];
+  } else if (device.status) {
+    return status[device.status];
   }
   return status.unknown;
 };

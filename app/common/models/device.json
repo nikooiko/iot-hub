@@ -15,22 +15,22 @@
     "userId": {
       "type": "any",
       "required": true,
-      "description": "The user id that basically owns this device"
-    },
-    "state": {
-      "type": "object",
-      "required": false,
-      "description": "Storage where the app is storing the device state (ex. status)"
-    },
-    "lastData": {
-      "type": "object",
-      "required": false,
-      "description": "Storage where the app is storing the device last received data"
+      "description": "The user id that basically indicates the owner of this device"
     },
     "activated": {
       "type": "boolean",
       "required": false,
       "description": "Indicates whether this device is activated or not"
+    },
+    "status": {
+      "type": "string",
+      "required": true,
+      "description": "Storage where the app is storing the status of the device (online/offline)"
+    },
+    "lastData": {
+      "type": "object",
+      "required": false,
+      "description": "Storage where the app is storing the device last received data"
     }
   },
   "validations": [],
