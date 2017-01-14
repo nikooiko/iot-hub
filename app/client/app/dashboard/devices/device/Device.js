@@ -46,16 +46,18 @@ export class Device extends React.Component {
     }
   }
 
-  renderData(sensors) {
+  renderData(data) {
     const sensorTiles = [];
     let i = -1;
-    const len = sensors.length - 1;
+    const sensorIds = Object.keys(data);
+    const len = sensorIds.length - 1;
     while ( i++ < len ) {
-      const sensor = sensors[i];
+      const sensorId = sensorIds[i];
       sensorTiles.push(
         <SensorTile
           key={i}
-          sensor={sensor}
+          sensorId={sensorId}
+          sensorValue={data[sensorId]}
         />
       );
     }

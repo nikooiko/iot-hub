@@ -1,5 +1,5 @@
 import api from '../../../utils/api';
-import { SET_DEVICES, SET_DEVICE, SET_IS_FETCHING } from './devicesTypes';
+import { SET_DEVICES, SET_DEVICE, UPDATE_DEVICE, SET_IS_FETCHING } from './devicesTypes';
 
 // Sync Action Creators
 export const setIsFetching = (isFetching) => {
@@ -8,6 +8,10 @@ export const setIsFetching = (isFetching) => {
 
 export const setDevice = (device) => {
   return { type: SET_DEVICE, device };
+};
+
+export const updateDevice = (deviceId, newValues) => {
+  return { type: UPDATE_DEVICE, deviceId, newValues };
 };
 
 export const setDevices = (devices) => {
