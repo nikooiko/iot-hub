@@ -7,13 +7,15 @@ import DeviceTile from './DeviceTile';
 import Navbar from '../navigation/Navbar';
 import { fetchDevices } from './store/devicesActions';
 import Loading from '../../common/Loading';
+import OwnerStream from './lib/OwnerStream';
 
 export class Devices extends React.Component {
   constructor(props, content) {
     super(props, content);
     this.state = {
       isReady: false
-    }
+    };
+    this.ownerStream = new OwnerStream();
   }
 
   componentWillMount() {
@@ -24,6 +26,10 @@ export class Devices extends React.Component {
           isReady: true
         });
       });
+  }
+
+  componentWillUnmount() {
+    this.ownerStream.destroy();
   }
 
   renderDevice(device) {

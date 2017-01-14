@@ -9,7 +9,7 @@ const onUpdate = () => {
   window.scrollTo(0, 0);
 };
 
-const store = configureStore();
+export const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 // Render Provider >> Router
