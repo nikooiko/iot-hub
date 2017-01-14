@@ -27,7 +27,16 @@ class IotHub {
       .of(ownersPath)
       .use(this.validateToken('owner'))
       .on('connection', socket => {
-        logger.info(`Owner with ID ${socket.decoded_token.userId} connected.`);
+        const userId = socket.decoded_token.userId;
+        logger.info(`Owner with ID ${userId} connected.`);
+        socket.join(userId, (err) => {
+          if (err) {
+            logger.error(`Socket with ID ${socket.id} failed to join room ${userId}.`);
+            socket.disconnect();
+            return;
+          }
+          logger.info(`Socket with ID ${socket.id} joined room ${userId}.`);
+        });
         // TODO event handlers
       })
       .on('error', err => {
@@ -75,6 +84,11 @@ class IotHub {
       .on('error', err => {
         logger.error({ err }, 'Error with device socket');
       });
+  }
+
+  sendMessageToOwner(userId, message) {
+    const strUserId = userId.toString();
+    this.server.of(ownersPath).to(strUserId).emit('message', message);
   }
 
   validateToken(tokenType) {

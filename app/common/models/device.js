@@ -2,6 +2,7 @@
 
 const utils = require('../../server/lib/customUtils');
 const tokenHandler = require('../../server/lib/tokenHandler');
+const msgTypes = require('../../server/lib/msgTypes');
 
 module.exports = (Device) => {
   /**
@@ -185,6 +186,12 @@ module.exports = (Device) => {
             new Error(`Failed to update status for device with ID ${deviceId}`)
           );
         }
+        const message = {
+          type: msgTypes.devStatusChange,
+          deviceId,
+          status
+        };
+        Device.app.iotHub.sendMessageToOwner(device.userId, message);
         return Promise.resolve();
       });
     });
@@ -202,6 +209,12 @@ module.exports = (Device) => {
             new Error(`Failed to update data for device with ID ${deviceId}`)
           );
         }
+        const message = {
+          type: msgTypes.devData,
+          deviceId,
+          data
+        };
+        Device.app.iotHub.sendMessageToOwner(device.userId, message);
         return Promise.resolve();
       });
     });
