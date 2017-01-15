@@ -6,6 +6,8 @@ const tokenHandler = require('./tokenHandler');
 const ownersPath = '/owners';
 const devicesPath = '/devices';
 
+const adminRoom = 'admin';
+
 class IotHub {
   constructor(app) {
     this.app = app;
@@ -29,14 +31,23 @@ class IotHub {
       .on('connection', socket => {
         const userId = socket.decoded_token.userId;
         logger.info(`Owner with ID ${userId} connected.`);
-        socket.join(userId, (err) => {
-          if (err) {
-            logger.error(`Socket with ID ${socket.id} failed to join room ${userId}.`);
-            socket.disconnect();
-            return;
-          }
-          logger.info(`Socket with ID ${socket.id} joined room ${userId}.`);
-        });
+        // check if isAdmin in order to join admin's rooms
+        this.app.models.AppUser.getUserRoles(userId)
+          .then((roles) => {
+            const isAdmin = (roles.indexOf('admin') !== -1);
+            let room = userId;
+            if (isAdmin) {
+              room = 'admin';
+            }
+            socket.join(room, (err) => {
+              if (err) {
+                logger.error(`Socket with ID ${socket.id} failed to join room '${room}'.`);
+                socket.disconnect();
+                return;
+              }
+              logger.info(`Socket with ID ${socket.id} joined room '${room}'.`);
+            });
+          });
         // TODO event handlers
       })
       .on('error', err => {
@@ -89,6 +100,8 @@ class IotHub {
   sendMessageToOwner(userId, message) {
     const strUserId = userId.toString();
     this.server.of(ownersPath).to(strUserId).emit('message', message);
+    // also send to admin
+    this.server.of(ownersPath).to(adminRoom).emit('message', message);
   }
 
   validateToken(tokenType) {
