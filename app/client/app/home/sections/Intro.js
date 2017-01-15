@@ -10,9 +10,7 @@ class Intro extends React.Component {
         <Box direction='row' flex={true} justify='center'>
           <Box basis='2/3' justify='center' pad={{ vertical: 'large' }}>
             <Box basis='2/3' justify='end' pad={{ vertical: 'large' }} align='center'>
-              <Box justify='center' direction='row' flex={true}>
-                <HomeLogo/>
-              </Box>
+              <HomeLogo/>
             </Box>
             <Box basis='1/3' justify='start' >
               <Headline className='intro-title' strong={true}>
