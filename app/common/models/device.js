@@ -120,7 +120,8 @@ module.exports = (Device) => {
    * See https://docs.strongloop.com/display/public/LB/Remote+methods
    */
   Device.remoteMethod('getMyDevices', {
-    description: 'The login functionality for devices to receive token for server communication',
+    description: 'The functionality that provides the devices that belong to logged in user. Or ' +
+    'all devices if the logged in user is admin',
     http: {
       verb: 'get',
       status: 200
@@ -158,21 +159,79 @@ module.exports = (Device) => {
       .catch(cb);
   };
 
-  Device.beforeRemote('getMyDevices', (ctx, user, next) => {
-    // Check for normal user access
-    const accessToken = ctx.req.accessToken;
-    const methodStringName = ctx.method.stringName;
-    const methodName = methodStringName.substr(methodStringName.lastIndexOf('.') + 1);
-    if (!accessToken) {
-      return next(new Error(
-        `Request reached remote hook for ${methodName} in ${Device.modelName} without token`
-      ));
-    }
-    ctx.args.loggedUser = {};
-    ctx.args.loggedUser.userId = accessToken.userId;
-    return next();
+  Device.beforeRemote('getMyDevices', utils.getLoggedInUser(Device));
+
+  /**
+   * Setup the remote method for a user to get his devices count. This is done in the Loopback way
+   * of declaring Remote Methods. `getMyDevicesCount` is declared as a static method in **Device**
+   * and here is the needed configuration to expose it as an API method in Device API
+   * See https://docs.strongloop.com/display/public/LB/Remote+methods
+   */
+  Device.remoteMethod('getMyDevicesCount', {
+    description: 'The functionality that provides the devices count for the logged in user. Or ' +
+    'all devices count, if the logged in user is admin.',
+    http: {
+      verb: 'get',
+      status: 200
+    },
+    isStatic: true,
+    accepts: [{
+      arg: 'loggedUser',
+      description: 'The logged in user information',
+      type: 'object'
+    }],
+    returns: [{
+      arg: 'devicesCount',
+      description: 'The devicesCount that belong to logged in user',
+      type: 'object'
+    }]
   });
 
+  Device.getMyDevicesCount = (loggedUser, cb) => {
+    const userId = loggedUser.userId; // no need to check loggedUser because it's checked at before
+    Device.app.models.AppUser.getUserRoles(userId)
+      .then((roles) => {
+        const isAdmin = (roles.indexOf('admin') !== -1);
+        const getCount = () => {
+          const allWhere = {};
+          const deactivatedWhere = { activated: false };
+          const onlineWhere = { activated: true, status: 'online' };
+          const offlineWhere = { activated: true, status: 'offline' };
+          if (!isAdmin) {
+            allWhere.userId = userId;
+            deactivatedWhere.userId = userId;
+            onlineWhere.userId = userId;
+            offlineWhere.userId = userId;
+          }
+          return Promise.all([
+            Device.find({ where: allWhere }),
+            Device.find({ where: deactivatedWhere }),
+            Device.find({ where: onlineWhere }),
+            Device.find({ where: offlineWhere })
+          ])
+            .then(([allDevices, deactivatedDevices, onlineDevices, offlineDevices]) => {
+              const all = allDevices.length;
+              const deactivated = deactivatedDevices.length;
+              const online = onlineDevices.length;
+              const offline = offlineDevices.length;
+              return {
+                all,
+                deactivated,
+                online,
+                offline
+              };
+            });
+        };
+        return getCount().then((finalDevicesCount) => {
+          cb(null, finalDevicesCount);
+        });
+      })
+      .catch(cb);
+  };
+
+  Device.beforeRemote('getMyDevicesCount', utils.getLoggedInUser(Device));
+
+// private functions
   Device.updateStatus = (deviceId, status) => Device.findById(deviceId)
     .then((device) => {
       if (!device) {

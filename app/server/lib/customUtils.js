@@ -1,15 +1,22 @@
 'use strict';
 
-const loopback = require('loopback');
-const tokenHandler = require('./tokenHandler');
+function getLoggedInUser(Model) {
+  return (ctx, user, next) => {
+    // Check for normal user access
+    const accessToken = ctx.req.accessToken;
+    const methodStringName = ctx.method.stringName;
+    const methodName = methodStringName.substr(methodStringName.lastIndexOf('.') + 1);
+    if (!accessToken) {
+      return next(new Error(
+        `Request reached remote hook for ${methodName} in ${Model.modelName} without token`
+      ));
+    }
+    ctx.args.loggedUser = {};
+    ctx.args.loggedUser.userId = accessToken.userId;
+    return next();
+  };
+}
 
-/**
- * @method httpError
- * @param {String} message The message creating the error body
- * @param {Number} [status=500] The status code that will be sent to the response
- * @param {String} code Alphanumerical ID for error code
- * @return {Error}
- */
 function httpError(message, status = 500, code = null) {
   const err = new Error(message);
   if (code) {
@@ -19,13 +26,6 @@ function httpError(message, status = 500, code = null) {
   return err;
 }
 
-/**
- * Find the collection name of the passed model
- *
- * @method getModelCollection
- * @param {Model} model The model that we want to get the collection from
- * @return {Collection} The mongodb Collection
- */
 function getModelCollection(model) {
   const modelDataSource = model.dataSource;
   model.dataSource.once('connected', () => { // get the db collection to use for ops
@@ -40,6 +40,7 @@ function getModelCollection(model) {
 }
 
 module.exports = {
+  getLoggedInUser,
   httpError,
   getModelCollection
 };

@@ -73,6 +73,13 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "getMyDevices"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "getMyDevicesCount"
     }
   ],
   "methods": {}
