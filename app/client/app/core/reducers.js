@@ -6,7 +6,6 @@ import app from './store/appReducers';
 import sidebar from '../dashboard/navigation/sidebar/store/sidebarReducers';
 import home from '../home/store/homeReducers';
 import auth from '../auth/store/authReducers';
-import dashboard from '../dashboard/store/dashboardReducers';
 import devices from '../dashboard/devices/store/devicesReducers';
 import { UNAUTH_USER } from '../auth/store/authTypes';
 import api from '../utils/api';
@@ -24,7 +23,6 @@ const appReducer = combineReducers({
   sidebar,
   home,
   auth,
-  dashboard,
   devices
 });
 

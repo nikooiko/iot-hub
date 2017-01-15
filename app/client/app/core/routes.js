@@ -6,11 +6,11 @@ import App from './App.js';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import Auth from '../auth/Auth';
-import DashboardLayout from '../dashboard/DashboardLayout';
+import Dashboard from '../dashboard/Dashboard';
 import RequireAuth from '../auth/RequireAuth';
 import RequireUnauth from '../auth/RequireUnauth';
 import Home from '../home/Home';
-import Dashboard from '../dashboard/Dashboard';
+import DashboardIndex from '../dashboard/DashboardIndex';
 import Devices from '../dashboard/devices/Devices';
 import Device from '../dashboard/devices/device/Device';
 
@@ -25,8 +25,8 @@ export default (store) => {
     <Route path='/' component={App} onChange={routeChangeHandler}>
       <IndexRoute components={RequireUnauth(Home)}/>
       <Route components={RequireUnauth(Home)}/>
-      <Route path='' component={RequireAuth(DashboardLayout)}>
-        <Route path='dashboard' component={Dashboard} />
+      <Route path='' component={RequireAuth(Dashboard)}>
+        <Route path='dashboard' component={DashboardIndex} />
         <Route path='devices' component={Devices}>
           <Route path=':deviceId' component={Device} />
         </Route>

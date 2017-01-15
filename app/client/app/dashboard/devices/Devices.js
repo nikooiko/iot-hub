@@ -5,33 +5,9 @@ import Notification from 'grommet/components/Notification';
 import Tiles from 'grommet/components/Tiles';
 import DeviceTile from './DeviceTile';
 import Navbar from '../navigation/Navbar';
-import { fetchDevices } from './store/devicesActions';
 import Loading from '../../common/Loading';
-import OwnerStream from './lib/OwnerStream';
 
 export class Devices extends React.Component {
-  constructor(props, content) {
-    super(props, content);
-    this.state = {
-      isReady: false
-    };
-    this.ownerStream = new OwnerStream();
-  }
-
-  componentWillMount() {
-    this.props.fetchDevices()
-      .then(() => {
-        this.setState({
-          ...this.state,
-          isReady: true
-        });
-      });
-  }
-
-  componentWillUnmount() {
-    this.ownerStream.destroy();
-  }
-
   renderDevice(device) {
     return (
       <DeviceTile
@@ -43,7 +19,7 @@ export class Devices extends React.Component {
 
   render() {
     let content;
-    if (!this.state.isReady || this.props.devices.isFetching) {
+    if (this.props.devices.isFetching) {
       content = <Loading />;
     } else if (this.props.children) {
       return this.props.children;
@@ -74,4 +50,4 @@ const mapStateToProps = (state) => ({
   devices: state.devices
 });
 
-export default connect(mapStateToProps, { fetchDevices })(Devices);
+export default connect(mapStateToProps)(Devices);

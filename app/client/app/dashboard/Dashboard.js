@@ -1,115 +1,51 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Box from 'grommet/components/Box';
-import Value from 'grommet/components/Value';
-import Accordion from 'grommet/components/Accordion';
-import AccordionPanel from 'grommet/components/AccordionPanel';
-import AllIcon from 'grommet/components/icons/base/Robot';
-import Status from 'grommet/components/icons/Status';
-
-import Navbar from './navigation/Navbar';
-import { status } from './devices/lib/getDeviceStatus';
-import { fetchDevicesCount } from './store/dashboardActions';
+import Split from 'grommet/components/Split';
+import Article from 'grommet/components/Article';
+import Sidebar from './navigation/sidebar/Sidebar';
+import { fetchDevices } from './devices/store/devicesActions';
+import OwnerStream from './devices/lib/OwnerStream';
 import Loading from '../common/Loading';
 
-export class Dashboard extends React.Component {
+class Dashboard extends React.Component {
+  constructor(props, content) {
+    super(props, content);
+    this.ownerStream = new OwnerStream();
+    this.state = {
+      isReady: false
+    }
+  }
+
   componentWillMount() {
-    this.props.fetchDevicesCount();
+    this.props.fetchDevices()
+      .then(() => {
+        this.setState({
+          ...this.state,
+          isReady: true
+        })
+      });
+  }
+
+  componentWillUnmount() {
+    this.ownerStream.destroy();
   }
 
   render() {
-    const { mediaType, user, devicesCount } = this.props;
-    let valueSize = 'large';
-    let iconSize = 'large';
-    if (mediaType === 'palm') {
-      valueSize = 'medium';
-    }
-    let devicesInfo = <Loading />;
-    if ( devicesCount ) {
-      devicesInfo = (
-        <Box
-          direction='row' flex={true} justify='between'
-          pad={{between:'small'}}
-        >
-          <Box
-            direction='row' responsive={false} justify='between' flex={true}
-            pad={{between:'small'}}
-          >
-            <Box
-              align='center' direction='column' pad='small'
-              colorIndex='grey-5' flex={true}
-            >
-              <Value
-                icon={<AllIcon size={iconSize} />}
-                label='All Devices' value={devicesCount.all} size={valueSize}
-              />
-            </Box>
-            <Box
-              align='center' direction='column' pad='small'
-              colorIndex={ status.online.colorIndex } flex={true}
-            >
-              <Value
-                icon={<Status value={ status.online.value } size={iconSize} />}
-                label='Online' value={devicesCount.online} size={valueSize}
-              />
-            </Box>
-          </Box>
-          <Box
-            direction='row' responsive={false} justify='between' flex={true}
-            pad={{between:'small'}}
-          >
-            <Box
-              align='center' direction='column' pad='small'
-              colorIndex={ status.offline.colorIndex } flex={true}
-            >
-              <Value
-                icon={<Status value={ status.offline.value } size={iconSize} />}
-                label='Offline' value={devicesCount.offline} size={valueSize}
-              />
-            </Box>
-            <Box
-              align='center' direction='column' pad='small'
-              colorIndex={ status.deactivated.colorIndex } flex={true}
-            >
-              <Value
-                icon={<Status value={ status.deactivated.value } size={iconSize} />}
-                label='Deactivated' value={devicesCount.deactivated} size={valueSize}
-              />
-            </Box>
-          </Box>
-        </Box>
-      );
-    }
+    const priority = this.props.sidebarOpened ? 'left' : 'right';
+
     return (
-      <Box>
-        <Navbar page='Dashboard'/>
-        <Box margin={{top: 'small', horizontal: 'small'}} pad='none'>
-          { devicesInfo }
-        </Box>
-        <Box margin={{top: 'small', horizontal: 'small'}} pad='none' colorIndex='light-2'>
-          <Accordion openMulti={true} animate={false}>
-            <AccordionPanel heading='User Information' pad='small'>
-              <Box>
-                <strong>Owner ID:</strong>
-                <span>{ user.id }</span>
-              </Box>
-            </AccordionPanel>
-            <AccordionPanel heading='Shortcuts and Actions' pad='small'>
-              <Box>
-                Shortcuts && Actions
-              </Box>
-            </AccordionPanel>
-          </Accordion>
-        </Box>
-      </Box>
-    );
+      <Split fixed={true} flex={'right'} priority={priority}>
+        <Sidebar/>
+        <Article colorIndex='light-1'>
+          { this.state.isReady ? this.props.children : <Loading />}
+        </Article>
+      </Split>
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-  mediaType: state.browser.mediaType,
-  user: state.auth.user,
-  devicesCount: state.dashboard.devicesCount
+  sidebarOpened: state.sidebar.opened
 });
 
-export default connect(mapStateToProps, { fetchDevicesCount })(Dashboard);
+export default connect(mapStateToProps, { fetchDevices })(Dashboard);
