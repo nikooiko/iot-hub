@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { routerActions } from 'react-router-redux';
 import Box from 'grommet/components/Box';
 import Hero from 'grommet/components/Hero';
 import Image from 'grommet/components/Image';
@@ -11,11 +12,6 @@ import { Link } from 'react-router';
 import { loginRoute, registerRoute } from './authConfig';
 
 class Auth extends React.Component {
-  // Used to load router to props
-  static contextTypes = {
-    router: React.PropTypes.object
-  };
-
   render() {
     const currentUrl = location && location.pathname;
     const imgUrl = '/static/IotHub-logo.png';
@@ -31,9 +27,9 @@ class Auth extends React.Component {
               />
             </Link>
             <Tabs activeIndex={(currentUrl === loginRoute) ? 0 : 1} responsive={false}>
-              <Tab title='Login' onTouchTap={() => this.context.router.push(loginRoute)}>
+              <Tab title='Login' onTouchTap={() => this.props.push(loginRoute)}>
               </Tab>
-              <Tab title='Register' onTouchTap={() => this.context.router.push(registerRoute)}>
+              <Tab title='Register' onTouchTap={() => this.props.push(registerRoute)}>
               </Tab>
             </Tabs>
             <Box align='center'>
@@ -50,4 +46,4 @@ const mapStateToProps = (state) => ({
   location: state.routing.location
 });
 
-export default connect(mapStateToProps)(Auth);
+export default connect(mapStateToProps, { push: routerActions.push })(Auth);

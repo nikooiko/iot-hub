@@ -1,27 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { routerActions } from 'react-router-redux';
 import { routeAfterUnauth } from './authConfig';
+import Loading from '../common/Loading';
 
 export default (ComposedComponent) => {
   class Authenticated extends React.Component {
-    static contextTypes = {
-      router: React.PropTypes.object
-    };
-
     componentWillMount() {
       if(!this.props.authenticated) {
-        this.context.router.push(routeAfterUnauth);
+        this.props.push(routeAfterUnauth);
       }
     }
 
     componentWillUpdate(nextProps) {
       if(!nextProps.authenticated) {
-        this.context.router.push(routeAfterUnauth);
+        this.props.push(routeAfterUnauth);
       }
     }
 
     render() {
-      return <ComposedComponent {...this.props} />
+      if(this.props.authenticated) {
+        return <ComposedComponent {...this.props} />
+      } else {
+        return <Loading />
+      }
     }
   }
 
@@ -29,5 +31,5 @@ export default (ComposedComponent) => {
     authenticated: state.auth.authenticated
   });
 
-  return connect(mapStateToProps)(Authenticated);
+  return connect(mapStateToProps, { push: routerActions.push })(Authenticated);
 }

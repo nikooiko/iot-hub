@@ -24,7 +24,6 @@ export default (store) => {
   return (
     <Route path='/' component={App} onChange={routeChangeHandler}>
       <IndexRoute components={RequireUnauth(Home)}/>
-      <Route components={RequireUnauth(Home)}/>
       <Route path='' component={RequireAuth(Dashboard)}>
         <Route path='dashboard' component={DashboardIndex} />
         <Route path='devices' component={Devices}>
