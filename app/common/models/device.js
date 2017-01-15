@@ -83,12 +83,25 @@ module.exports = (Device) => {
             return;
           }
           Device.create({ id: deviceId, userId: ownerId, activated: false, status: 'offline' })
-            .then(() => {
+            .then((newDevice) => {
+              if (!newDevice) {
+                const err = utils.httpError(
+                  'Device could not be created',
+                  404,
+                  'DeviceCouldNotBeCreated'
+                );
+                return cb(err);
+              }
               const err = utils.httpError(
                 'Device is not activated for communication',
                 401,
                 'DeviceNotActivated'
               );
+              const message = {
+                type: msgTypes.newDevice,
+                device: newDevice
+              };
+              Device.app.iotHub.sendMessageToOwner(newDevice.userId, message);
               return cb(err);
             })
             .catch(cb);

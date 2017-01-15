@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import msgTypes from '../../../../../server/lib/msgTypes';
 import { store } from '../../../core/Root';
-import { updateDevice } from '../store/devicesActions';
+import { updateDevice, setDevice } from '../store/devicesActions';
 
 const ownersPath = '/owners';
 
@@ -27,6 +27,10 @@ class OwnerStream {
     });
     socket.on('message', (message) => {
       switch (message.type) {
+        case msgTypes.newDevice:
+          console.debug('Received new device message');
+          store.dispatch(setDevice(message.device));
+          break;
         case msgTypes.devStatusChange:
           console.debug('Received device status change');
           store.dispatch(updateDevice(message.deviceId, { status: message.status }));
