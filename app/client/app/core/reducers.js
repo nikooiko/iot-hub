@@ -28,6 +28,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === UNAUTH_USER) {
+    state.devices.ownerStream.stop();
     state.devices = undefined;
     api.setAuthenticationHeader(null);
   }

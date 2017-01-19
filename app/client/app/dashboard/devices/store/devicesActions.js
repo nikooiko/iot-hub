@@ -1,5 +1,7 @@
 import api from '../../../utils/api';
 import { SET_DEVICES, SET_DEVICE, UPDATE_DEVICE, SET_IS_FETCHING } from './devicesTypes';
+import msgTypes from '../../../../../server/lib/msgTypes';
+const ownersMsgTypes = msgTypes.ownersMsgTypes;
 
 // Sync Action Creators
 export const setIsFetching = (isFetching) => {
@@ -41,23 +43,28 @@ export const fetchDevices = () => {
 };
 
 export const activate = (deviceId) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     // TODO Warning: fix race conditions ?
-    return api.patch(`/Devices/${deviceId}`, { activated: true })
-      .then((response) => {
-        const device = response.data;
-        dispatch(setDevice(device));
-      })
+    const message = {
+      type: ownersMsgTypes.updateDevice,
+      deviceId,
+      data: {
+        activated: true
+      }
+    };
+    getState().devices.ownerStream.sendMessageToIotHub(message);
   };
 };
 
 export const deactivate = (deviceId) => {
-  return (dispatch) => {
-    // TODO Warning: fix race conditions ?
-    return api.patch(`/Devices/${deviceId}`, { activated: false })
-      .then((response) => {
-        const device = response.data;
-        dispatch(setDevice(device));
-      })
+  return (dispatch, getState) => {
+    const message = {
+      type: ownersMsgTypes.updateDevice,
+      deviceId,
+      data: {
+        activated: false
+      }
+    };
+    getState().devices.ownerStream.sendMessageToIotHub(message);
   };
 };

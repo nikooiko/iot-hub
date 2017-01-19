@@ -4,19 +4,19 @@ import Split from 'grommet/components/Split';
 import Article from 'grommet/components/Article';
 import Sidebar from './navigation/sidebar/Sidebar';
 import { fetchDevices } from './devices/store/devicesActions';
-import OwnerStream from './devices/lib/OwnerStream';
 import Loading from '../common/Loading';
 
 class Dashboard extends React.Component {
   constructor(props, content) {
     super(props, content);
-    this.ownerStream = new OwnerStream();
+
     this.state = {
       isReady: false
     }
   }
 
   componentWillMount() {
+    this.props.ownerStream.start();
     this.props.fetchDevices()
       .then(() => {
         this.setState({
@@ -24,10 +24,6 @@ class Dashboard extends React.Component {
           isReady: true
         })
       });
-  }
-
-  componentWillUnmount() {
-    this.ownerStream.destroy();
   }
 
   render() {
@@ -45,7 +41,8 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  sidebarOpened: state.sidebar.opened
+  sidebarOpened: state.sidebar.opened,
+  ownerStream: state.devices.ownerStream
 });
 
 export default connect(mapStateToProps, { fetchDevices })(Dashboard);

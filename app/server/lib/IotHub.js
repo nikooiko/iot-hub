@@ -2,6 +2,8 @@
 
 const socketIo = require('socket.io');
 const tokenHandler = require('./tokenHandler');
+const ownersMsgTypes = require('./msgTypes').ownersMsgTypes;
+const iotHubMsgTypes = require('./msgTypes').iotHubMsgTypes;
 
 const ownersPath = '/owners';
 const devicesPath = '/devices';
@@ -48,7 +50,29 @@ class IotHub {
               logger.info(`Socket with ID ${socket.id} joined room '${room}'.`);
             });
           });
-        // TODO event handlers
+
+        socket.on('message', (message) => {
+          let deviceId;
+          switch (message.type) {
+            case ownersMsgTypes.updateDevice:
+              deviceId = message.deviceId;
+              this.app.models.Device.updateDevice(deviceId, message.data)
+                .then((device) => {
+                  logger.info(`Updated device ${deviceId} successfully`);
+                  const msg = {
+                    type: iotHubMsgTypes.newDevice,
+                    device
+                  };
+                  this.sendMessageToOwner(userId, msg);
+                })
+                .catch((err) => {
+                  logger.error({ err });
+                });
+              break;
+            default:
+              logger.error(`Received unsupported message from owner ${userId}.`);
+          }
+        });
       })
       .on('error', err => {
         logger.error({ err }, 'Error with owner socket');
@@ -62,30 +86,52 @@ class IotHub {
       .use(this.validateToken('device'))
       .on('connection', socket => {
         logger.info(`Device with ID ${socket.decoded_token.deviceId} connected.`);
-        this.app.models.Device.updateStatus(socket.decoded_token.deviceId, 'online')
+        this.app.models.Device.updateDevice(socket.decoded_token.deviceId, { status: 'online' })
           .then(() => {
-            logger.info(`Updated status of device ${socket.decoded_token.deviceId} successfully`);
+            const deviceId = socket.decoded_token.deviceId;
+            logger.info(`Updated status of device ${deviceId} successfully`);
+            const message = {
+              type: iotHubMsgTypes.devStatusChange,
+              deviceId,
+              status: 'online'
+            };
+            this.sendMessageToOwner(socket.decoded_token.userId, message);
           })
           .catch((err) => {
             logger.error({ err });
           });
         socket.on('data', (deviceData) => {
-          const deviceId = deviceData.deviceId;
+          const deviceId = socket.decoded_token.deviceId;
           const data = deviceData.data;
           logger.info({ data }, `Received data from device ${deviceId}`);
-          this.app.models.Device.updateData(deviceId, data)
+          this.app.models.Device.updateDevice(deviceId, { data })
             .then(() => {
               logger.info(`Updated data of device ${deviceId} successfully`);
+              const message = {
+                type: iotHubMsgTypes.devData,
+                deviceId,
+                data
+              };
+              this.sendMessageToOwner(socket.decoded_token.userId, message);
+              return Promise.resolve();
             })
             .catch((err) => {
               logger.error({ err });
             });
         });
         socket.on('disconnect', () => {
-          logger.info(`Device with ID ${socket.decoded_token.deviceId} disconnected.`);
-          this.app.models.Device.updateStatus(socket.decoded_token.deviceId, 'offline')
+          const deviceId = socket.decoded_token.deviceId;
+          logger.info(`Device with ID ${deviceId} disconnected.`);
+          this.app.models.Device.updateDevice(deviceId, { status: 'offline' })
             .then(() => {
-              logger.info(`Updated status of device ${socket.decoded_token.deviceId} successfully`);
+              logger.info(`Updated status of device ${deviceId} successfully`);
+              const message = {
+                type: iotHubMsgTypes.devStatusChange,
+                deviceId,
+                status: 'offline'
+              };
+              this.sendMessageToOwner(socket.decoded_token.userId, message);
+              return Promise.resolve();
             })
             .catch((err) => {
               logger.error({ err });

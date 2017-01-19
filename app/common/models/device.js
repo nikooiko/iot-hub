@@ -2,7 +2,7 @@
 
 const utils = require('../../server/lib/customUtils');
 const tokenHandler = require('../../server/lib/tokenHandler');
-const msgTypes = require('../../server/lib/msgTypes');
+const iotHubMsgTypes = require('../../server/lib/msgTypes').iotHubMsgTypes;
 
 module.exports = (Device) => {
   /**
@@ -98,7 +98,7 @@ module.exports = (Device) => {
                 'DeviceNotActivated'
               );
               const message = {
-                type: msgTypes.newDevice,
+                type: iotHubMsgTypes.newDevice,
                 device: newDevice
               };
               Device.app.iotHub.sendMessageToOwner(newDevice.userId, message);
@@ -245,50 +245,14 @@ module.exports = (Device) => {
   Device.beforeRemote('getMyDevicesCount', utils.getLoggedInUser(Device));
 
 // private functions
-  Device.updateStatus = (deviceId, status) => Device.findById(deviceId)
+  Device.updateDevice = (deviceId, data) => Device.findById(deviceId)
     .then((device) => {
       if (!device) {
         return Promise.reject(
-          new Error(`Device with ID ${deviceId} not found to update status`)
+          new Error(`Device with ID ${deviceId} not found to update`)
         );
       }
-      return device.updateAttributes({ status }, (err) => {
-        if (err) {
-          return Promise.reject(
-            new Error(`Failed to update status for device with ID ${deviceId}`)
-          );
-        }
-        const message = {
-          type: msgTypes.devStatusChange,
-          deviceId,
-          status
-        };
-        Device.app.iotHub.sendMessageToOwner(device.userId, message);
-        return Promise.resolve();
-      });
-    });
-
-  Device.updateData = (deviceId, data) => Device.findById(deviceId)
-    .then((device) => {
-      if (!device) {
-        return Promise.reject(
-          new Error(`Device with ID ${deviceId} not found to data`)
-        );
-      }
-      return device.updateAttributes({ lastData: data }, (err) => {
-        if (err) {
-          return Promise.reject(
-            new Error(`Failed to update data for device with ID ${deviceId}`)
-          );
-        }
-        const message = {
-          type: msgTypes.devData,
-          deviceId,
-          data
-        };
-        Device.app.iotHub.sendMessageToOwner(device.userId, message);
-        return Promise.resolve();
-      });
+      return device.updateAttributes(data);
     });
 
   // Validations

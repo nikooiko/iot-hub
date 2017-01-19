@@ -1,4 +1,8 @@
-import { UPDATE_DEVICE, SET_DEVICE, SET_DEVICES, SET_IS_FETCHING} from './devicesTypes';
+import { UPDATE_DEVICE, SET_DEVICE, SET_DEVICES, SET_IS_FETCHING }
+  from './devicesTypes';
+import OwnerStream from '../lib/OwnerStream';
+
+const ownerStream = new OwnerStream();
 
 const INITIAL_STATE = {
   devices: [],
@@ -8,7 +12,8 @@ const INITIAL_STATE = {
     online: 0,
     offline: 0
   },
-  isFetching: false
+  isFetching: false,
+  ownerStream
 };
 
 const findDevice = (deviceId) => {
@@ -108,7 +113,7 @@ export default (state = INITIAL_STATE, action) => {
         devicesCount: newDevicesCount
       };
     case SET_IS_FETCHING:
-      return {...state, isFetching: action.isFetching};
+      return {...state, isFetching: action.isFetching };
     default:
       return state;
   }
