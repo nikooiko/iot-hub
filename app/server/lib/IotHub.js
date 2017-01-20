@@ -63,6 +63,9 @@ class IotHub {
                     type: iotHubMsgTypes.newDevice,
                     device
                   };
+                  if (!device.activated) {
+                    this.disconnectDevice(device.id);
+                  }
                   this.sendMessageToOwner(userId, msg);
                 })
                 .catch((err) => {
@@ -148,6 +151,19 @@ class IotHub {
     this.server.of(ownersPath).to(strUserId).emit('message', message);
     // also send to admin
     this.server.of(ownersPath).to(adminRoom).emit('message', message);
+  }
+
+  disconnectDevice(deviceId) {
+    const connected = this.server.nsps[devicesPath].connected;
+    let i = -1;
+    const socketIds = Object.keys(connected);
+    const len = socketIds.length - 1;
+    while (i++ < len) {
+      const socket = connected[socketIds[i]];
+      if (socket.decoded_token.deviceId === deviceId) {
+        socket.disconnect();
+      }
+    }
   }
 
   validateToken(tokenType) {
