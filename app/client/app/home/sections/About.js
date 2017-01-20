@@ -10,8 +10,8 @@ import Button from 'grommet/components/Button';
 import Paragraph from 'grommet/components/Paragraph';
 import TopIcon from 'grommet/components/icons/base/Up';
 import Anchor from 'grommet/components/Anchor';
+import GitHubIcon from 'grommet/components/icons/base/SocialGithub';
 
-import Logo from '../../common/Logo';
 
 const grommetLogo = '/static/technologies/grommet-logo.png';
 const lbLogo = '/static/technologies/lb-logo.png';
@@ -75,7 +75,10 @@ class About extends React.Component {
         <Footer
           primary={true} colorIndex='neutral-1' pad={{horizontal:'medium', vertical:'small'}}
         >
-          <Logo color='white'/>
+          <Anchor
+            href="https://github.com/nikooiko/iot-hub" icon={<GitHubIcon />} target='_blank'
+            animateIcon={true}
+          />
           <Box flex={true} direction='row' justify='center'>
             <Paragraph margin='none' align='center'>
               © 2016
