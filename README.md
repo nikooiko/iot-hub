@@ -1,4 +1,16 @@
 # IOTHub
+
+## Demo
+For now the hub is hosted at [iot-hub.tk](http://iot-hub.tk)
+
+Admin credentials:  
+Username: `admin`  
+Password: `1234`  
+
+Demo user credentials:  
+Username: `demo`  
+Password: `1234`  
+
 ## Description 
 Presentation: [presentation](https://docs.google.com/presentation/d/1Xi2VNbumGQ3iPnQSmlPcEmbbN7ib7VYmEkX46dJeXdA/edit#slide=id.g19cd573a60_0_1204)
 
@@ -7,8 +19,6 @@ This app is an iot hub micro service, where owners (or consumers) can connect wi
 Its main purpose is to serve other applications as a stream of incoming sensor's data coming from many devices.
 
 It can be used as a multiplexer and processor of these data where many apps of the same owner can connect and receive concurrently real-time data.
-
-For now the hub is hosted at [iot-hub.tk](http://iot-hub.tk)
 
 ## How to connect:
 There are two instances that can connect to this hub, the devices and the owners of these devices.
@@ -22,8 +32,12 @@ An owner must do the following:
 ### Devices
 example [iot-device](https://github.com/nikooiko/iot-device)
 
+` TODO Add API && Socket-endpoints `
+
 ### Owners
 examples:
 
 1. The front-end of this app acts like an owner. 
 2. [iot-platform](https://github.com/nikooiko/iot-platform)
+
+` TODO Add API && Socket-endpoints `
