@@ -1,12 +1,11 @@
 import React from 'react';
 import Button from 'grommet/components/Button';
 
-class Page1 extends React.Component {
+class AboutUs extends React.Component {
   render() {
-    // TODO
     return (
-      <Button/>
+      <div>AboutUs</div>
     )
   }
 }
-export default Page1;
+export default AboutUs;
