@@ -11,7 +11,7 @@ import Paragraph from 'grommet/components/Paragraph';
 import TopIcon from 'grommet/components/icons/base/Up';
 import Anchor from 'grommet/components/Anchor';
 import GitHubIcon from 'grommet/components/icons/base/SocialGithub';
-
+import InfoIcon from 'grommet/components/icons/base/CircleInformation';
 
 const grommetLogo = '/static/technologies/grommet-logo.png';
 const lbLogo = '/static/technologies/lb-logo.png';
@@ -22,18 +22,20 @@ const nodejsLogo = '/static/technologies/nodejs-logo.png';
 
 class About extends React.Component {
   render() {
+    let name = 'Nick Oikonomou';
     let imgSize = 'small';
     let headlineSize = 'medium';
     // Calculate Responsive values
     const mediaType = this.props.mediaType;
     if (mediaType === 'palm') {
+      name = '';
       headlineSize = 'small';
       imgSize = 'thumb';
     }
 
     return (
       <Box flex={true} responsive={false} justify='between'>
-        <Box justify='center' flex={true}>
+        <Box justify='center' align='center' flex={true}>
           <Headline strong={true} size={headlineSize}>
             Technologies Used
           </Headline>
@@ -71,6 +73,11 @@ class About extends React.Component {
               </Anchor>
             </Tile>
           </Tiles>
+          <Box direction='row' pad='large'>
+            <Button
+              path='/aboutUs' label='About Us' icon={<InfoIcon />}
+            />
+          </Box>
         </Box>
         <Footer
           primary={true} colorIndex='neutral-1' pad={{horizontal:'medium', vertical:'small'}}
@@ -81,7 +88,7 @@ class About extends React.Component {
           />
           <Box flex={true} direction='row' justify='center'>
             <Paragraph margin='none' align='center'>
-              © 2016
+              {name} © 2016
             </Paragraph>
           </Box>
           <Button

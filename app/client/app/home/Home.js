@@ -18,7 +18,7 @@ class Home extends React.Component {
       ['_onSelect', '_onSectionUp', '_onSectionDown', '_onSectionSelect']);
 
     this.state = {
-      selected: 0 // TODO 0
+      selected: 0
     };
 
     this.sections = ['intro', 'iot', 'community', 'join', 'about'];
