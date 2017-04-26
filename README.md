@@ -1,6 +1,6 @@
 # IOTHub
 
-## Demo
+## Demo (OLD)
 For now the hub is hosted at [iot-hub.tk](http://iot-hub.tk)
 
 Admin credentials:  
@@ -32,12 +32,7 @@ An owner must do the following:
 ### Devices
 example [iot-device](https://github.com/nikooiko/iot-device)
 
-` TODO Add API && Socket-endpoints `
-
 ### Owners
 examples:
 
 1. The front-end of this app acts like an owner. 
-2. [iot-platform](https://github.com/nikooiko/iot-platform)
-
-` TODO Add API && Socket-endpoints `
